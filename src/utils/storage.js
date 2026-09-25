@@ -61,6 +61,16 @@ export function calculateRemainingPomodoroSeconds(state) {
 }
 
 /**
+ * Checks if a Pomodoro session is actively running and not expired
+ */
+export function isPomodoroActive(state) {
+  if (!state || !state.isRunning) return false;
+  if (state.targetEndTime && state.targetEndTime <= Date.now()) return false;
+  return true;
+}
+
+
+/**
  * Gets settings merged with defaults and legacy migration support
  */
 export async function getSettings() {

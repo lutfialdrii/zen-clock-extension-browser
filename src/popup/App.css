@@ -95,6 +95,41 @@ body {
   box-shadow: 0 2px 6px rgba(251, 191, 36, 0.25);
 }
 
+.pomodoro-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  display: inline-block;
+  margin-left: 2px;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.9);
+  animation: pulse-dot 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.tab-btn.active .pomodoro-active-dot {
+  background-color: #047857;
+  box-shadow: 0 0 5px rgba(4, 120, 87, 0.6);
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.85;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
 .header-actions {
   display: flex;
   align-items: center;

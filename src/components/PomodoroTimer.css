@@ -126,3 +126,52 @@
   color: #ffffff;
   transform: rotate(-30deg);
 }
+
+/* Fullscreen variant for Desk Clock */
+.pomodoro-container-full {
+  gap: clamp(24px, 4vh, 48px);
+  padding: 20px 0;
+}
+
+.pomodoro-container-full .pomodoro-header {
+  padding: 6px 8px;
+  border-radius: 28px;
+}
+
+.pomodoro-container-full .pomodoro-pill-tab {
+  padding: 8px 20px;
+  font-size: clamp(13px, 1.4vw, 16px);
+  border-radius: 20px;
+}
+
+.pomodoro-container-full .pomodoro-flip-clock {
+  gap: clamp(14px, 2.5vw, 30px);
+}
+
+.pomodoro-container-full .pomodoro-flip-clock .flip-unit-container {
+  width: clamp(96px, 18vw, 190px);
+  height: clamp(128px, 24vw, 250px);
+  perspective: 1200px;
+  border-radius: clamp(10px, 2vw, 18px);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.pomodoro-container-full .pomodoro-flip-clock .flip-card {
+  font-size: clamp(68px, 13vw, 135px);
+}
+
+.pomodoro-container-full .pomodoro-controls {
+  gap: clamp(14px, 2vw, 24px);
+  margin-top: 14px;
+}
+
+.pomodoro-container-full .pomodoro-btn-primary {
+  width: clamp(54px, 6vw, 68px);
+  height: clamp(54px, 6vw, 68px);
+}
+
+.pomodoro-container-full .pomodoro-btn-secondary {
+  width: clamp(42px, 5vw, 54px);
+  height: clamp(42px, 5vw, 54px);
+}
+

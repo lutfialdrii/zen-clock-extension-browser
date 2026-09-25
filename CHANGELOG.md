@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-09-25
 
 ### Fixed & Hardened
+- Automatic routing to active Pomodoro tab on popup open and fullscreen Desk Clock mount when a session is running (`isRunning === true`).
+- Animated pulsing active dot indicator (`.pomodoro-active-dot`) on Pomodoro navigation buttons across popup and fullscreen views.
+- Fullscreen Desk Clock mode (`DeskClockPage.jsx`) now features dual view navigation (`FlipClock` & `PomodoroTimer`) with responsive clamp scaling and bidirectional background sync.
 - Anti multi-start re-entrancy guard in Service Worker preventing accidental timer resets from concurrent popups or rapid clicks.
 - Multi-view Single Source of Truth (SSOT) synchronization deriving remaining Pomodoro seconds directly from `targetEndTime`.
 - Background Service Worker reactive storage listener ensuring instant recalculation when location or prayer offsets are changed.

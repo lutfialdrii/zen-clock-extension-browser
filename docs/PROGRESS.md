@@ -17,6 +17,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ✅ Selesai |
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ✅ Selesai |
 | **M7.1: Pre-Release Hardening** | Persistensi disk LevelDB, storage reactive listener, anti multi-state Pomodoro guard & SSOT | `fix/pomodoro-state-and-storage` | ✅ Selesai |
+| **M7.2: Pomodoro Fullscreen & Routing** | Mode Pomodoro di Desk Clock, auto-routing tab saat sesi aktif, pulsing dot indicator | `fix/pomodoro-fullscreen-and-routing` | ✅ Selesai |
+
 
 ---
 
@@ -103,3 +105,13 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Pastikan seluruh UI (`PomodoroTimer.jsx`, Popup, Desk Clock) secara murni menurunkan sisa waktu dari `targetEndTime - Date.now()` (Single Source of Truth).
 - [x] Buat unit test `tests/storageAndGuard.test.js` untuk memvalidasi guard dan formula SSOT (12/12 lulus).
 - [x] Lakukan verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.2: Pomodoro Fullscreen & Active Routing Fixes ✅
+- [x] Tambahkan mode Pomodoro di layar penuh Desk Clock (`DeskClockPage.jsx`) dengan toggle tampilan Clock & Pomodoro, layout clamp responsif, dan sinkronisasi background.
+- [x] Implementasikan auto-routing ke tab Pomodoro saat membuka popup widget jika status Pomodoro sedang aktif (`isPomodoroActive`).
+- [x] Tambahkan dot icon beranimasi pulsing (`.pomodoro-active-dot`) saat Pomodoro aktif di tampilan Popup maupun Fullscreen Desk Clock.
+- [x] Buat unit test `tests/pomodoroRouting.test.js` (17/17 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+

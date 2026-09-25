@@ -6,7 +6,7 @@ import PomodoroTimer from '../components/PomodoroTimer.jsx';
 import CityPickerModal from '../components/CityPickerModal.jsx';
 import AdjustModal from '../components/AdjustModal.jsx';
 import SettingsModal from '../components/SettingsModal.jsx';
-import { getSettings, saveSettings, getPomodoroState, savePomodoroState } from '../utils/storage.js';
+import { getSettings, saveSettings, getPomodoroState, savePomodoroState, isPomodoroActive } from '../utils/storage.js';
 import { getTranslations } from '../utils/i18n.js';
 import './App.css';
 
@@ -32,6 +32,9 @@ export default function App() {
 
     getPomodoroState().then((p) => {
       setPomodoroState(p);
+      if (isPomodoroActive(p)) {
+        setActiveTab('pomodoro');
+      }
     });
 
     // Listen to reactive storage changes
@@ -110,6 +113,7 @@ export default function App() {
           >
             <Timer size={14} />
             <span>{t.ui.navPomodoro}</span>
+            {isPomodoroActive(pomodoroState) && <span className="pomodoro-active-dot" />}
           </button>
         </nav>
 
