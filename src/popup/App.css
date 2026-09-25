@@ -1,6 +1,7 @@
 :root {
   --bg-color: #0c0d10;
   --panel-bg: #1c1e24;
+  --zen-accent: #fbbf24;
   --accent-color: #fbbf24;
   --text-main: #f0f2f5;
   --text-muted: #94a3b8;
@@ -17,16 +18,18 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
 }
 
 .popup-container {
   width: 380px;
   min-height: 480px;
-  max-height: 580px;
+  max-height: 540px;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-color);
-  overflow-y: auto;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Header */
@@ -34,8 +37,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.8rem;
-  background-color: rgba(18, 18, 22, 0.9);
+  padding: 8px 12px;
+  background-color: rgba(18, 20, 26, 0.95);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
@@ -45,18 +48,24 @@ body {
 .brand-badge {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 6px;
   font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--accent-color);
+  font-size: 13px;
+  color: var(--zen-accent, #fbbf24);
+  letter-spacing: -0.01em;
+  user-select: none;
+}
+
+.brand-icon {
+  color: var(--zen-accent, #fbbf24);
 }
 
 .tab-nav {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  background-color: rgba(0, 0, 0, 0.35);
-  padding: 0.2rem;
+  gap: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 3px;
   border-radius: 9999px;
   border: 1px solid var(--border-color);
 }
@@ -64,13 +73,13 @@ body {
 .tab-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 5px;
   background: transparent;
   color: var(--text-muted);
   border: none;
-  font-size: 0.75rem;
+  font-size: 11px;
   font-weight: 600;
-  padding: 0.25rem 0.6rem;
+  padding: 4px 10px;
   border-radius: 9999px;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -81,8 +90,15 @@ body {
 }
 
 .tab-btn.active {
-  background-color: var(--accent-color);
-  color: #0f172a;
+  background-color: var(--zen-accent, #fbbf24);
+  color: #0c0d10;
+  box-shadow: 0 2px 6px rgba(251, 191, 36, 0.25);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .icon-action-btn {
@@ -90,7 +106,7 @@ body {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0.3rem;
+  padding: 5px;
   border-radius: 6px;
   transition: all 0.15s ease;
   display: flex;
@@ -106,33 +122,24 @@ body {
 /* Content */
 .popup-content {
   flex: 1;
-  padding: 1.25rem 1rem;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
 }
 
-.placeholder-panel {
-  flex: 1;
+.tab-panel {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem 1rem;
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.02);
+  animation: fadeIn 0.15s ease-out;
 }
 
-.placeholder-panel h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: var(--text-main);
-}
-
-.placeholder-panel p {
-  margin: 0;
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  max-width: 260px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.99); }
+  to { opacity: 1; transform: scale(1); }
 }

@@ -14,8 +14,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ✅ Selesai |
 | **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ✅ Selesai |
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ✅ Selesai |
-| **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Siap Dikerjakan |
-| **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Menunggu |
+| **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ✅ Selesai |
+| **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Siap Dikerjakan |
 
 ---
 
@@ -78,11 +78,13 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 6: Integrasi Root App & Theme Sync ⏳
-- [ ] Buat root React application `src/popup/App.jsx` dan mount point `src/popup/main.jsx`.
-- [ ] Tambahkan tab navigasi header: `Clock`, `Pomodoro`, dan `Settings`.
-- [ ] Daftarkan listener `chrome.storage.onChanged` untuk sinkronisasi reaktif instan.
-- [ ] Lakukan verifikasi build Vite lengkap (`npm run build`).
+### Milestone 6: Integrasi Root App & Theme Sync ✅
+- [x] Buat root React application `src/popup/App.jsx` dan styling `src/popup/App.css`.
+- [x] Tambahkan tab navigasi header: `Clock`, `Pomodoro`, dan tombol `Settings` & `Desk Clock`.
+- [x] Daftarkan listener `chrome.storage.onChanged` untuk sinkronisasi reaktif instan.
+- [x] Implementasikan halaman layar penuh `src/deskClock/DeskClockPage.jsx`.
+- [x] Implementasikan halaman hening pengingat sholat `src/reminder/ReminderPage.jsx` dengan ayat QS. An-Nisa: 103 dan tombol siap sholat.
+- [x] Lakukan verifikasi build Vite lengkap (`npm run build`).
 
 ---
 
