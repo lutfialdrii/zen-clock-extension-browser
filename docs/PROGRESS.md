@@ -16,6 +16,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ✅ Selesai |
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ✅ Selesai |
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ✅ Selesai |
+| **M7.1: Pre-Release Hardening** | Persistensi disk LevelDB, storage reactive listener, anti multi-state Pomodoro guard & SSOT | `fix/pomodoro-state-and-storage` | ⏳ Siap Dikerjakan |
 
 ---
 
@@ -92,3 +93,13 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Buat skrip packager `scripts/package-zip.js` untuk membuat berkas `releases/extension-browser-zen-clock-0.0.1.zip`.
 - [x] Susun dokumentasi `README.md` dan `CHANGELOG.md` rilis awal v0.0.1.
 - [x] Uji build dan packaging release zip lengkap (122 KB) siap publish ke Chrome Web Store & Edge Add-ons.
+
+---
+
+### Milestone 7.1: Pre-Release Hardening: Storage Persistence & Pomodoro Anti-Desync ⏳
+- [ ] Daftarkan listener `chrome.storage.onChanged` di Background Service Worker agar perubahan kota/lokasi & koreksi waktu sholat seketika memicu pembaruan jadwal dan timer.
+- [ ] Terapkan Anti Multi-Start Guard di `START_POMODORO` handler Service Worker untuk mencegah reset tidak sengaja saat timer sedang aktif.
+- [ ] Tambahkan alarm periodik `ZEN_POMODORO_TICK` (1 menit) di `chrome.alarms` untuk menjaga konsistensi toolbar badge saat Service Worker tertidur.
+- [ ] Pastikan seluruh UI (`PomodoroTimer.jsx`, Popup, Desk Clock) secara murni menurunkan sisa waktu dari `targetEndTime - Date.now()` (Single Source of Truth).
+- [ ] Buat unit test `tests/pomodoroGuard.test.js` untuk memvalidasi guard dan formula SSOT.
+- [ ] Lakukan verifikasi penuh: `npm test && npm run package:zip`.

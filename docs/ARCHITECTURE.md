@@ -96,6 +96,33 @@ graph TD
 
 ---
 
+## 🛡️ Jaminan Anti Multi-State & Model Persistensi Memori Lokal
+
+### 1. Model Persistensi Memori Lokal (`chrome.storage.local`)
+- Seluruh konfigurasi pengguna (kota/lokasi, koreksi menit, warna tema aksen, bahasa, parameter `autoOpenReminderTab`) dan state Pomodoro disimpan menggunakan API `chrome.storage.local`.
+- Data secara fisik dipersistensikan ke **database LevelDB / SQLite pada profil disk lokal perangkat pengguna**.
+- **Karakteristik**:
+  - Bertahan permanen (*durable*) terhadap penutupan browser, restart sistem operasi, maupun pembaharuan versi ekstensi.
+  - Bebas dari ketergantungan cloud atau server eksternal, menjamin privasi dan kecepatan akses lokal instan (0 latency).
+  - Dilengkapi mekanisme reaktif `chrome.storage.onChanged` dua arah: perubahan dari UI Popup, Desk Clock, atau Service Worker akan disinkronkan secara instan ke seluruh tab aktif secara otomatis.
+
+### 2. Arsitektur Anti Multi-State Pomodoro (Concurrency & SSOT)
+Untuk mencegah *desynchronization*, *race conditions*, atau *timer drift* saat pengguna membuka beberapa jendela/tab sekaligus:
+1. **Target End Time sebagai Single Source of Truth (SSOT)**:
+   - Saat sesi Pomodoro dimulai, Service Worker menetapkan `targetEndTime = Date.now() + timeLeft * 1000` dan menyimpannya ke `chrome.storage.local`.
+   - Seluruh komponen UI (Popup, Fullscreen Desk Clock, badge) **selalu menurunkan sisa waktu murni dari formula**:
+     $$\text{remainingSeconds} = \max(0, \text{round}((\text{targetEndTime} - \text{Date.now()}) / 1000))$$
+   - Tidak ada timer lokal yang berjalan secara independen; semua tampilan terikat pada satu *epoch timestamp* yang sama.
+2. **Anti Multi-Start Re-entrancy Guard**:
+   - Jika pesan `START_POMODORO` dikirim saat sesi sudah aktif (`isRunning === true` dan `targetEndTime > Date.now()`), Service Worker menolak pembentukan sesi baru dan mempertahankan `targetEndTime` yang ada. Hal ini mencegah *accidental reset* akibat double-click atau eksekusi simultan dari beberapa tab.
+3. **Mitigasi Suspensi Service Worker Manifest V3**:
+   - Di Chrome Manifest V3, background worker akan *suspend* (masuk mode tidur) setelah ~30 detik tanpa aktivitas event.
+   - Ekstensi menggunakan **`chrome.alarms`** ganda:
+     - `ZEN_POMODORO_FINISH` (`when: targetEndTime`): Menjamin worker terbangun tepat pada milidetik sesi berakhir untuk menembakkan notifikasi desktop dan beralih mode.
+     - `ZEN_POMODORO_TICK` (`periodInMinutes: 1`): Membangunkan worker setiap menit untuk menjaga akurasi teks badge pada toolbar peramban.
+
+---
+
 ## 🔒 Keamanan & Kebijakan Toko (Chrome Web Store & Edge Add-ons)
 1. **Least Privilege**: Hanya meminta 3 permissions: `"storage"`, `"alarms"`, `"notifications"`.
 2. **Zero Inlined Script**: Mematuhi Content Security Policy (CSP) Manifest V3 (semua skrip di-bundle via Vite).

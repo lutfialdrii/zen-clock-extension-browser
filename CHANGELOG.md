@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - 2026-09-25
 
+### Fixed & Hardened
+- Anti multi-start re-entrancy guard in Service Worker preventing accidental timer resets from concurrent popups or rapid clicks.
+- Multi-view Single Source of Truth (SSOT) synchronization deriving remaining Pomodoro seconds directly from `targetEndTime`.
+- Background Service Worker reactive storage listener ensuring instant recalculation when location or prayer offsets are changed.
+
 ### Added
 - Automated distribution packaging script (`scripts/package-zip.js`) generating production-ready zip files in `releases/`.
 - Integrated root popup view (`App.jsx`) with reactive `chrome.storage.onChanged` listener, theme color injection, and tab navigation.
