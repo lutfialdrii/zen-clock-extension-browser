@@ -1,0 +1,261 @@
+import React, { useState } from 'react';
+import { Settings, X, Check, Palette, Globe, Bell, Clock, Compass } from 'lucide-react';
+import { getTranslations } from '../utils/i18n.js';
+import './Modals.css';
+
+const PRESET_THEMES = [
+  { name: 'Warm Amber', hex: '#fbbf24' },
+  { name: 'Cyberpunk Cyan', hex: '#06b6d4' },
+  { name: 'Emerald Forest', hex: '#10b981' },
+  { name: 'Rose Velvet', hex: '#f43f5e' },
+  { name: 'Violet Eclipse', hex: '#8b5cf6' },
+  { name: 'Coral Sunset', hex: '#f97316' },
+];
+
+export default function SettingsModal({
+  isOpen,
+  onClose,
+  settings,
+  onSaveSettings,
+}) {
+  const language = settings?.language || 'id';
+  const t = getTranslations(language);
+
+  const [localSettings, setLocalSettings] = useState({
+    accentColor: settings?.accentColor || '#fbbf24',
+    language: settings?.language || 'id',
+    autoOpenReminderTab: settings?.autoOpenReminderTab !== false,
+    notifyPrayer: settings?.notifyPrayer !== false,
+    notifyPomodoro: settings?.notifyPomodoro !== false,
+    workDuration: settings?.workDuration || 25,
+    breakDuration: settings?.breakDuration || 5,
+  });
+
+  const [customHex, setCustomHex] = useState('');
+
+  if (!isOpen) return null;
+
+  const handleApplyCustomHex = () => {
+    if (/^#([0-9A-F]{3}){1,2}$/i.test(customHex)) {
+      setLocalSettings((prev) => ({ ...prev, accentColor: customHex }));
+      setCustomHex('');
+    }
+  };
+
+  const handleSave = () => {
+    onSaveSettings(localSettings);
+    onClose();
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal-dialog settings-dialog" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="modal-title-wrap">
+            <Settings size={16} className="modal-title-icon" />
+            <h3 className="modal-title">{t.ui.settings}</h3>
+          </div>
+          <button className="modal-close-btn" onClick={onClose} aria-label="Close">
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="settings-scroll-area">
+          {/* Section: Language */}
+          <div className="settings-section">
+            <div className="section-label">
+              <Globe size={13} />
+              <span>{language === 'en' ? 'Language' : 'Bahasa'}</span>
+            </div>
+            <div className="segmented-control">
+              <button
+                className={`segmented-btn ${localSettings.language === 'id' ? 'active' : ''}`}
+                onClick={() => setLocalSettings((prev) => ({ ...prev, language: 'id' }))}
+              >
+                Bahasa Indonesia
+              </button>
+              <button
+                className={`segmented-btn ${localSettings.language === 'en' ? 'active' : ''}`}
+                onClick={() => setLocalSettings((prev) => ({ ...prev, language: 'en' }))}
+              >
+                English
+              </button>
+            </div>
+          </div>
+
+          {/* Section: Theme Color */}
+          <div className="settings-section">
+            <div className="section-label">
+              <Palette size={13} />
+              <span>{t.ui.themeColor}</span>
+            </div>
+            <div className="theme-color-palette">
+              {PRESET_THEMES.map((theme) => {
+                const isSelected = localSettings.accentColor.toLowerCase() === theme.hex.toLowerCase();
+                return (
+                  <button
+                    key={theme.hex}
+                    className={`theme-color-circle ${isSelected ? 'selected' : ''}`}
+                    style={{ backgroundColor: theme.hex }}
+                    onClick={() => setLocalSettings((prev) => ({ ...prev, accentColor: theme.hex }))}
+                    title={theme.name}
+                    aria-label={theme.name}
+                  >
+                    {isSelected && <Check size={14} className="color-check-icon" />}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="custom-hex-row">
+              <input
+                type="text"
+                className="custom-hex-input"
+                placeholder={t.ui.customHexPlaceholder || 'Hex kustom (#fbbf24)'}
+                value={customHex}
+                onChange={(e) => setCustomHex(e.target.value)}
+                maxLength={7}
+              />
+              <button
+                className="custom-hex-btn"
+                onClick={handleApplyCustomHex}
+                disabled={!/^#([0-9A-F]{3}){1,2}$/i.test(customHex)}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+
+          {/* Section: Prayer Reminders (Parameterized) */}
+          <div className="settings-section">
+            <div className="section-label">
+              <Compass size={13} />
+              <span>{language === 'en' ? 'Prayer Reminders' : 'Pengingat Waktu Sholat'}</span>
+            </div>
+            
+            <div className="setting-toggle-row">
+              <div className="toggle-info">
+                <span className="toggle-title">
+                  {language === 'en' ? 'Auto-Open Reminder Tab' : 'Buka Otomatis Tab Pengingat'}
+                </span>
+                <span className="toggle-desc">
+                  {language === 'en'
+                    ? 'Automatically opens a serene reminder tab upon prayer arrival.'
+                    : 'Membuka tab hening baru secara otomatis saat waktu adzan tiba.'}
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={localSettings.autoOpenReminderTab}
+                  onChange={(e) =>
+                    setLocalSettings((prev) => ({ ...prev, autoOpenReminderTab: e.target.checked }))
+                  }
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+
+            <div className="setting-toggle-row">
+              <div className="toggle-info">
+                <span className="toggle-title">
+                  {language === 'en' ? 'Desktop Notification' : 'Notifikasi Desktop'}
+                </span>
+                <span className="toggle-desc">
+                  {language === 'en'
+                    ? 'Show system notification popup with prayer details.'
+                    : 'Tampilkan notifikasi desktop saat masuk waktu sholat.'}
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={localSettings.notifyPrayer}
+                  onChange={(e) =>
+                    setLocalSettings((prev) => ({ ...prev, notifyPrayer: e.target.checked }))
+                  }
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          {/* Section: Pomodoro Settings */}
+          <div className="settings-section">
+            <div className="section-label">
+              <Clock size={13} />
+              <span>{language === 'en' ? 'Pomodoro Settings' : 'Pengaturan Pomodoro'}</span>
+            </div>
+
+            <div className="setting-toggle-row">
+              <div className="toggle-info">
+                <span className="toggle-title">
+                  {language === 'en' ? 'Pomodoro Notifications' : 'Notifikasi Pomodoro'}
+                </span>
+                <span className="toggle-desc">
+                  {language === 'en'
+                    ? 'Alert when work or break session finishes.'
+                    : 'Beri notifikasi saat sesi kerja atau istirahat selesai.'}
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={localSettings.notifyPomodoro}
+                  onChange={(e) =>
+                    setLocalSettings((prev) => ({ ...prev, notifyPomodoro: e.target.checked }))
+                  }
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+
+            <div className="duration-inputs-row">
+              <div className="duration-input-box">
+                <label className="duration-label">{t.ui.work} (mins)</label>
+                <input
+                  type="number"
+                  min="5"
+                  max="60"
+                  className="duration-num-input"
+                  value={localSettings.workDuration}
+                  onChange={(e) =>
+                    setLocalSettings((prev) => ({
+                      ...prev,
+                      workDuration: Math.max(5, Math.min(60, Number(e.target.value) || 25)),
+                    }))
+                  }
+                />
+              </div>
+
+              <div className="duration-input-box">
+                <label className="duration-label">{t.ui.break} (mins)</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="30"
+                  className="duration-num-input"
+                  value={localSettings.breakDuration}
+                  onChange={(e) =>
+                    setLocalSettings((prev) => ({
+                      ...prev,
+                      breakDuration: Math.max(1, Math.min(30, Number(e.target.value) || 5)),
+                    }))
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="modal-footer-actions">
+          <button className="modal-btn-secondary" onClick={onClose}>
+            {language === 'en' ? 'Cancel' : 'Batal'}
+          </button>
+          <button className="modal-btn-primary" onClick={handleSave}>
+            {language === 'en' ? 'Save Settings' : 'Simpan Pengaturan'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dual-card Pomodoro timer component (`PomodoroTimer.jsx`) with work/break presets, start/pause/reset states, and service worker bidirectional sync.
+- City picker search modal (`CityPickerModal.jsx`) supporting fast filtering across Indonesian and international cities.
+- Minute offset fine-tuning modal (`AdjustModal.jsx`) for precision prayer adjustments.
+- Settings modal (`SettingsModal.jsx`) with 6 preset accent themes + custom hex input, language switcher, Pomodoro duration controls, and parameterized automatic prayer reminder tab toggle (`autoOpenReminderTab`).
 - Proportional 3D retro mechanical Flip Clock component (`FlipClock.jsx`, `FlipUnit.jsx`) optimized for compact 380px extension popup window.
 - Interactive Prayer Time component (`PrayerTime.jsx`) featuring upcoming prayer badge, full 6-prayer schedule table popover, active prayer highlighting, and quick settings toggles.
 - Manifest V3 background service worker with `chrome.alarms` lifecycle management and toolbar badge countdown (`chrome.action.setBadgeText`).
