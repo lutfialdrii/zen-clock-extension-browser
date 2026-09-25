@@ -37,4 +37,5 @@ releases/
 # Local documentation excluded from repository
 docs/BRANCHING_STRATEGY.md
 docs/DEV_LOG.md
+docs/NOTES.md
 
