@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Manifest V3 background service worker with `chrome.alarms` lifecycle management and toolbar badge countdown (`chrome.action.setBadgeText`).
+- Background Pomodoro engine supporting work & break sessions with persistent sleep-proof target end time calculations.
+- Automatic prayer time checker loop with parameterized reminder page tab opening (`autoOpenReminderTab`) and desktop notifications (`chrome.notifications`).
+- Typed reactive storage layer wrapping `chrome.storage.local` with sensible defaults and fallback support.
 - Standard Kemenag RI calculation engine with +2m safety buffer (ihtiyat) for Fajr, Dhuhr, Asr, Maghrib, Isha, and -2m for Sunrise.
 - Automatic Friday Dhuhr rename to "Jum'at" in both Indonesian and English.
 - Complete bilingual i18n dictionary (Bahasa Indonesia & English).

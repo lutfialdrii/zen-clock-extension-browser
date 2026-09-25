@@ -11,8 +11,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M0: Fondasi Repositori & Arsitektur** | Inisialisasi repo mandiri, penyusunan arsitektur MV3, SOP branching, dan rencana implementasi | `main` | ✅ Selesai |
 | **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ✅ Selesai |
 | **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ✅ Selesai |
-| **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ⏳ Siap Dikerjakan |
-| **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Menunggu |
+| **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ✅ Selesai |
+| **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Siap Dikerjakan |
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Menunggu |
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Menunggu |
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Menunggu |
@@ -49,12 +49,13 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 3: Background Service Worker, Alarms & Toolbar Badge ⏳
-- [ ] Implementasikan pembungkus penyimpanan `src/utils/storage.js` dengan nilai default.
-- [ ] Buat background service worker `src/background/serviceWorker.js`.
-- [ ] Implementasikan alarm `ZEN_TICK` untuk Pomodoro dan update badge toolbar via `chrome.action.setBadgeText()`.
-- [ ] Implementasikan alarm `ZEN_PRAYER_CHECK` dan trigger notifikasi adzan desktop via `chrome.notifications`.
-- [ ] Handle pesan kontrol Pomodoro dari UI Popup (`POMODORO_CMD`).
+### Milestone 3: Background Service Worker, Alarms & Toolbar Badge ✅
+- [x] Implementasikan pembungkus penyimpanan `src/utils/storage.js` dengan nilai default.
+- [x] Buat background service worker `src/background/serviceWorker.js`.
+- [x] Implementasikan alarm `ZEN_POMODORO_FINISH` & timer loop untuk update badge toolbar via `chrome.action.setBadgeText()`.
+- [x] Implementasikan alarm `ZEN_PRAYER_CHECK` dan trigger notifikasi adzan desktop via `chrome.notifications`.
+- [x] Handle pesan kontrol Pomodoro dari UI Popup (`START_POMODORO`, `PAUSE_POMODORO`, `RESET_POMODORO`).
+- [x] Parameterized auto open reminder tab `reminder.html` saat adzan tiba sesuai opsi `autoOpenReminderTab`.
 
 ---
 
