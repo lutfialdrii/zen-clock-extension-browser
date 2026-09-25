@@ -96,28 +96,28 @@ extension-browser-zen-clock/
 **Interfaces:**
 - Produces: Base project structure and Vite build pipeline for Manifest V3 extension with multi-page entries (popup, clock, reminder).
 
-- [ ] **Step 1: Create `.gitignore`**
+- [x] **Step 1: Create `.gitignore`**
   Ignore `node_modules/`, `dist/`, `releases/`, `*.zip`, `.DS_Store`.
 
-- [ ] **Step 2: Create `package.json`**
+- [x] **Step 2: Create `package.json`**
   Configure dependencies: `react`, `react-dom`, `adhan`, `lucide-react`.
   DevDependencies: `@vitejs/plugin-react`, `@crxjs/vite-plugin`, `vite`.
   Scripts: `"dev": "vite"`, `"build": "vite build"`, `"test": "node --test tests/*.test.js"`, `"package:zip": "node scripts/package-zip.js"`.
 
-- [ ] **Step 3: Create `manifest.json` (Manifest V3)**
+- [x] **Step 3: Create `manifest.json` (Manifest V3)**
   Define permissions (`storage`, `alarms`, `notifications`), action (`popup.html`), background service worker (`src/background/serviceWorker.js`), and icon mappings.
 
-- [ ] **Step 4: Create HTML entry points and `vite.config.js`**
+- [x] **Step 4: Create HTML entry points and `vite.config.js`**
   Create `popup.html`, `clock.html`, and `reminder.html`.
   Configure Vite with `crx({ manifest })` and rollup inputs for multi-page support.
 
-- [ ] **Step 5: Provide icons in `public/icons/`**
+- [x] **Step 5: Provide icons in `public/icons/`**
   Generate crisp 16x16, 48x48, and 128x128 icons with the Zen Clock branding.
 
-- [ ] **Step 6: Install dependencies and test build**
+- [x] **Step 6: Install dependencies and test build**
   Run `npm install && npm run build` to confirm `dist/` is generated with valid Manifest V3 structure.
 
-- [ ] **Step 7: Commit Task 1**
+- [x] **Step 7: Commit Task 1**
   `git add . && git commit -m "chore: scaffold extension-browser-zen-clock with Vite and Manifest V3"`
 
 ---

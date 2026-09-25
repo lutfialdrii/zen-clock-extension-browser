@@ -1,0 +1,89 @@
+# Zen Clock Browser Extension: Progress Tracker & Roadmap
+
+Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi browser **Zen Clock: Pomodoro & Muslim Prayer Times** (Google Chrome & Microsoft Edge).
+
+---
+
+## 📊 Status Ringkasan Milestone
+
+| Milestone | Deskripsi | Target Branch | Status |
+| :--- | :--- | :--- | :---: |
+| **M0: Fondasi Repositori & Arsitektur** | Inisialisasi repo mandiri, penyusunan arsitektur MV3, SOP branching, dan rencana implementasi | `main` | ✅ Selesai |
+| **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ⏳ Siap Dikerjakan |
+| **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ⏳ Menunggu |
+| **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ⏳ Menunggu |
+| **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Menunggu |
+| **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Menunggu |
+| **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Menunggu |
+| **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Menunggu |
+
+---
+
+## 📝 Detail Tugas per Milestone
+
+### Milestone 0: Fondasi Repositori & Arsitektur ✅
+- [x] Inisialisasi repositori terpisah di `/Users/sm/Documents/Lutfi/DEV/Learn/extension-browser-zen-clock`.
+- [x] Susun `docs/ARCHITECTURE.md` (arsitektur Service Worker First & Reactive Storage).
+- [x] Susun `docs/BRANCHING_STRATEGY.md` (SOP isolasi branch & gerbang kualitas).
+- [x] Susun `docs/superpowers/specs/2026-09-25-extension-browser-zen-clock-design.md` (Design Spec lengkap).
+- [x] Susun `docs/superpowers/plans/2026-09-25-browser-extension.md` (Implementation Plan terperinci).
+- [x] Susun `docs/PROGRESS.md` & `docs/DEV_LOG.md`.
+
+---
+
+### Milestone 1: Scaffolding Vite & Manifest V3 ⏳
+- [ ] Buat file `.gitignore` standar.
+- [ ] Konfigurasi `package.json` (React 19, Vite, `@crxjs/vite-plugin`, `adhan`, `lucide-react`).
+- [ ] Konfigurasi `manifest.json` Manifest V3 (permissions: `storage`, `alarms`, `notifications`).
+- [ ] Konfigurasi `vite.config.js` dengan integrasi CRXJS.
+- [ ] Buat file `popup.html` dan letakkan ikon di `public/icons/` (16x16, 48x48, 128x128).
+- [ ] Jalankan `npm install` dan verifikasi `npm run build`.
+
+---
+
+### Milestone 2: Prayer Times Engine, i18n & TDD ⏳
+- [ ] Buat unit tests di `tests/prayerHelper.test.js` (perhitungan Kemenag, auto-rename Jum'at di hari Jumat).
+- [ ] Implementasikan kamus terjemahan `src/utils/i18n.js` (Bahasa Indonesia & English).
+- [ ] Implementasikan modul perhitungan astronomi `src/utils/prayerHelper.js`.
+- [ ] Jalankan `npm test` menggunakan `node --test` dan pastikan 100% lulus.
+
+---
+
+### Milestone 3: Background Service Worker, Alarms & Toolbar Badge ⏳
+- [ ] Implementasikan pembungkus penyimpanan `src/utils/storage.js` dengan nilai default.
+- [ ] Buat background service worker `src/background/serviceWorker.js`.
+- [ ] Implementasikan alarm `ZEN_TICK` untuk Pomodoro dan update badge toolbar via `chrome.action.setBadgeText()`.
+- [ ] Implementasikan alarm `ZEN_PRAYER_CHECK` dan trigger notifikasi adzan desktop via `chrome.notifications`.
+- [ ] Handle pesan kontrol Pomodoro dari UI Popup (`POMODORO_CMD`).
+
+---
+
+### Milestone 4: Popup UI (3D Flip Clock & Jadwal Sholat) ⏳
+- [ ] Implementasikan kartu 3D flip mekanik responsif `src/components/FlipClock.jsx` dan styling 380px `FlipClock.css`.
+- [ ] Implementasikan komponen jadwal sholat `src/components/PrayerTime.jsx` dan `PrayerTime.css`.
+- [ ] Hubungkan logika tanggal agar sholat Dzuhur otomatis berlabel "Jum'at" pada hari Jumat di UI popup.
+
+---
+
+### Milestone 5: Pomodoro Timer 2-Kartu & Settings Modal ⏳
+- [ ] Implementasikan `src/components/PomodoroTimer.jsx` (2 kartu menit & detik yang terhubung ke service worker).
+- [ ] Implementasikan `src/components/SettingsModal.jsx`:
+  - Pencarian kota global & daftar kota populer di Indonesia.
+  - Penyesuaian koreksi menit (+/- offset) tiap waktu sholat.
+  - Pemilihan 6 warna tema + kustom kode HEX.
+  - Penggantian bahasa (ID/EN).
+
+---
+
+### Milestone 6: Integrasi Root App & Theme Sync ⏳
+- [ ] Buat root React application `src/popup/App.jsx` dan mount point `src/popup/main.jsx`.
+- [ ] Tambahkan tab navigasi header: `Clock`, `Pomodoro`, dan `Settings`.
+- [ ] Daftarkan listener `chrome.storage.onChanged` untuk sinkronisasi reaktif instan.
+- [ ] Lakukan verifikasi build Vite lengkap (`npm run build`).
+
+---
+
+### Milestone 7: Packaging Zip & Rilis v0.0.1 ⏳
+- [ ] Buat skrip packager `scripts/package-zip.js` untuk membuat berkas `releases/extension-browser-zen-clock-0.0.1.zip`.
+- [ ] Susun dokumentasi `README.md` dan `CHANGELOG.md` rilis awal v0.0.1.
+- [ ] Uji *load unpacked* ekstensi di Chrome (`chrome://extensions`) dan Edge (`edge://extensions`).
