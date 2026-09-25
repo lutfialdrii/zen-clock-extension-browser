@@ -19,6 +19,7 @@ import { getTranslations } from '../utils/i18n.js';
 const ALARMS = {
   PRAYER_CHECK: 'ZEN_PRAYER_CHECK',
   POMODORO_FINISH: 'ZEN_POMODORO_FINISH',
+  POMODORO_TICK: 'ZEN_POMODORO_TICK',
 };
 
 let pomodoroIntervalId = null;
@@ -36,7 +37,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 chrome.runtime.onStartup.addListener(async () => {
   console.log('[Zen Clock Service Worker] Browser startup.');
   setupAlarms();
-  resumePomodoroIfRunning();
+  await resumePomodoroIfRunning();
   await checkPrayerTimes();
 });
 
@@ -59,8 +60,34 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     await checkPrayerTimes();
   } else if (alarm.name === ALARMS.POMODORO_FINISH) {
     await handlePomodoroFinished();
+  } else if (alarm.name === ALARMS.POMODORO_TICK) {
+    await handlePomodoroTickAlarm();
   }
 });
+
+/**
+ * Handles periodic minute alarm for Pomodoro when background worker sleeps
+ */
+async function handlePomodoroTickAlarm() {
+  const state = await getPomodoroState();
+  if (!state.isRunning || !state.targetEndTime) {
+    chrome.alarms.clear(ALARMS.POMODORO_TICK);
+    return;
+  }
+
+  const remainingSecs = Math.max(0, Math.round((state.targetEndTime - Date.now()) / 1000));
+  if (remainingSecs <= 0) {
+    await handlePomodoroFinished();
+  } else {
+    const settings = await getSettings();
+    const badgeColor = state.mode === 'break' ? '#10b981' : (settings.accentColor || '#fbbf24');
+    updateToolbarBadge(formatBadgeTime(remainingSecs), badgeColor);
+
+    if (!pomodoroIntervalId) {
+      startTickLoop(state.targetEndTime);
+    }
+  }
+}
 
 /**
  * Checks prayer times against current time (accurate to 1-minute window)
@@ -183,6 +210,7 @@ async function resumePomodoroIfRunning() {
       await savePomodoroState({ timeLeft: remainingSecs });
       startTickLoop(state.targetEndTime);
       chrome.alarms.create(ALARMS.POMODORO_FINISH, { when: state.targetEndTime });
+      chrome.alarms.create(ALARMS.POMODORO_TICK, { periodInMinutes: 1 });
     }
   }
 }
@@ -203,10 +231,11 @@ function startTickLoop(targetEndTime) {
       await handlePomodoroFinished();
     } else {
       const state = await getPomodoroState();
-      const badgeColor = state.mode === 'break' ? '#10b981' : (state.accentColor || '#fbbf24');
+      const settings = await getSettings();
+      const badgeColor = state.mode === 'break' ? '#10b981' : (settings.accentColor || '#fbbf24');
       updateToolbarBadge(formatBadgeTime(remainingSecs), badgeColor);
 
-      // Only write to storage occasionally or on significant steps to avoid storage write churn
+      // Write to storage every 5 seconds to reduce I/O churn
       if (remainingSecs % 5 === 0) {
         await savePomodoroState({ timeLeft: remainingSecs });
       }
@@ -220,6 +249,7 @@ function stopTickLoop() {
     pomodoroIntervalId = null;
   }
   chrome.alarms.clear(ALARMS.POMODORO_FINISH);
+  chrome.alarms.clear(ALARMS.POMODORO_TICK);
 }
 
 /**
@@ -278,6 +308,27 @@ chrome.notifications.onClicked.addListener((notificationId) => {
 });
 
 /**
+ * Reactive listener: when storage changes (city, adjustments, theme), instantly recalculate
+ */
+if (chrome.storage && chrome.storage.onChanged) {
+  chrome.storage.onChanged.addListener(async (changes, area) => {
+    if (area === 'local') {
+      if (changes.zen_settings) {
+        console.log('[Zen Clock Service Worker] Settings updated via storage event, rechecking prayer times.');
+        await checkPrayerTimes();
+
+        const newSettings = changes.zen_settings.newValue;
+        const pState = await getPomodoroState();
+        if (pState.isRunning) {
+          const badgeColor = pState.mode === 'break' ? '#10b981' : (newSettings?.accentColor || '#fbbf24');
+          updateToolbarBadge(formatBadgeTime(pState.timeLeft), badgeColor);
+        }
+      }
+    }
+  });
+}
+
+/**
  * Handles messages from Popup UI, Desk Clock, and Reminder pages
  */
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -285,6 +336,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     switch (request.type) {
       case 'START_POMODORO': {
         const state = await getPomodoroState();
+
+        // ANTI-MULTI-START RE-ENTRANCY GUARD:
+        // If timer is already running with a future targetEndTime, do not overwrite or reset!
+        if (state.isRunning && state.targetEndTime && state.targetEndTime > Date.now()) {
+          console.log('[Zen Clock Service Worker] Pomodoro already running, ignoring duplicate start.');
+          sendResponse({
+            success: true,
+            targetEndTime: state.targetEndTime,
+            alreadyRunning: true,
+          });
+          break;
+        }
+
         const settings = await getSettings();
         const timeLeft = request.timeLeft || state.timeLeft;
         const targetEndTime = Date.now() + timeLeft * 1000;
@@ -297,6 +361,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
 
         chrome.alarms.create(ALARMS.POMODORO_FINISH, { when: targetEndTime });
+        chrome.alarms.create(ALARMS.POMODORO_TICK, { periodInMinutes: 1 });
         startTickLoop(targetEndTime);
 
         const badgeColor = state.mode === 'break' ? '#10b981' : (settings.accentColor || '#fbbf24');

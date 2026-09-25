@@ -1,6 +1,6 @@
 /**
  * Storage Helper for Zen Clock Browser Extension
- * Wraps chrome.storage.local with fallbacks and defaults
+ * Wraps chrome.storage.local with fallbacks, defaults, and multi-state consistency guards
  */
 
 export const DEFAULT_SETTINGS = {
@@ -36,7 +36,7 @@ export const DEFAULT_POMODORO = {
   targetEndTime: null,
 };
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   SETTINGS: 'zen_settings',
   POMODORO: 'zen_pomodoro',
   LAST_REMINDED: 'zen_last_reminded_prayer',
@@ -50,7 +50,18 @@ function isChromeStorageAvailable() {
 }
 
 /**
- * Gets settings merged with defaults
+ * Pure Single Source of Truth (SSOT) helper to compute remaining seconds
+ */
+export function calculateRemainingPomodoroSeconds(state) {
+  if (!state) return DEFAULT_POMODORO.timeLeft;
+  if (state.isRunning && state.targetEndTime) {
+    return Math.max(0, Math.round((state.targetEndTime - Date.now()) / 1000));
+  }
+  return typeof state.timeLeft === 'number' ? state.timeLeft : DEFAULT_POMODORO.timeLeft;
+}
+
+/**
+ * Gets settings merged with defaults and legacy migration support
  */
 export async function getSettings() {
   if (!isChromeStorageAvailable()) {
@@ -63,13 +74,31 @@ export async function getSettings() {
   }
 
   return new Promise((resolve) => {
-    chrome.storage.local.get([STORAGE_KEYS.SETTINGS], (result) => {
+    chrome.storage.local.get([STORAGE_KEYS.SETTINGS, 'zen_location', 'zen_adjustments'], (result) => {
       if (chrome.runtime?.lastError) {
         console.error('Storage getSettings error:', chrome.runtime.lastError);
         resolve({ ...DEFAULT_SETTINGS });
         return;
       }
-      resolve({ ...DEFAULT_SETTINGS, ...(result[STORAGE_KEYS.SETTINGS] || {}) });
+
+      const base = result[STORAGE_KEYS.SETTINGS] || {};
+
+      // Migrate legacy separate keys if present
+      if (!base.city && result.zen_location) {
+        base.city = result.zen_location;
+      }
+      if (!base.adjustments && result.zen_adjustments) {
+        base.adjustments = result.zen_adjustments;
+      }
+
+      const merged = {
+        ...DEFAULT_SETTINGS,
+        ...base,
+        city: { ...DEFAULT_SETTINGS.city, ...(base.city || {}) },
+        adjustments: { ...DEFAULT_SETTINGS.adjustments, ...(base.adjustments || {}) },
+      };
+
+      resolve(merged);
     });
   });
 }
@@ -79,7 +108,12 @@ export async function getSettings() {
  */
 export async function saveSettings(partial) {
   const current = await getSettings();
-  const updated = { ...current, ...partial };
+  const updated = {
+    ...current,
+    ...partial,
+    city: partial.city ? { ...current.city, ...partial.city } : current.city,
+    adjustments: partial.adjustments ? { ...current.adjustments, ...partial.adjustments } : current.adjustments,
+  };
 
   if (!isChromeStorageAvailable()) {
     try {
@@ -98,13 +132,15 @@ export async function saveSettings(partial) {
 }
 
 /**
- * Gets Pomodoro state merged with defaults
+ * Gets Pomodoro state merged with defaults and SSOT remaining time calculation
  */
 export async function getPomodoroState() {
   if (!isChromeStorageAvailable()) {
     try {
       const local = localStorage.getItem(STORAGE_KEYS.POMODORO);
-      return local ? { ...DEFAULT_POMODORO, ...JSON.parse(local) } : { ...DEFAULT_POMODORO };
+      const parsed = local ? { ...DEFAULT_POMODORO, ...JSON.parse(local) } : { ...DEFAULT_POMODORO };
+      parsed.timeLeft = calculateRemainingPomodoroSeconds(parsed);
+      return parsed;
     } catch {
       return { ...DEFAULT_POMODORO };
     }
@@ -117,7 +153,21 @@ export async function getPomodoroState() {
         resolve({ ...DEFAULT_POMODORO });
         return;
       }
-      resolve({ ...DEFAULT_POMODORO, ...(result[STORAGE_KEYS.POMODORO] || {}) });
+
+      const raw = result[STORAGE_KEYS.POMODORO] || {};
+      const pomodoro = { ...DEFAULT_POMODORO, ...raw };
+
+      // SSOT computation
+      if (pomodoro.isRunning && pomodoro.targetEndTime) {
+        const remaining = Math.max(0, Math.round((pomodoro.targetEndTime - Date.now()) / 1000));
+        pomodoro.timeLeft = remaining;
+        if (remaining <= 0) {
+          pomodoro.isRunning = false;
+          pomodoro.targetEndTime = null;
+        }
+      }
+
+      resolve(pomodoro);
     });
   });
 }
