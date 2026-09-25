@@ -64,8 +64,8 @@
 
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/lutfialdrii/extension-browser-zen-clock.git
-   cd extension-browser-zen-clock
+   git clone https://github.com/lutfialdrii/zen-clock-extension-browser.git
+   cd zen-clock-extension-browser
    ```
 2. Pasang dependensi:
    ```bash

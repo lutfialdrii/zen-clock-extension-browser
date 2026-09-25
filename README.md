@@ -86,8 +86,8 @@
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/lutfialdrii/extension-browser-zen-clock.git
-   cd extension-browser-zen-clock
+   git clone https://github.com/lutfialdrii/zen-clock-extension-browser.git
+   cd zen-clock-extension-browser
    ```
 2. Install dependencies:
    ```bash
