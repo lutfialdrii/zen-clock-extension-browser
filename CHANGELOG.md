@@ -5,9 +5,10 @@ All notable changes to the "Zen Clock: Pomodoro & Muslim Prayer Times" browser e
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.1] - 2026-09-25
 
 ### Added
+- Automated distribution packaging script (`scripts/package-zip.js`) generating production-ready zip files in `releases/`.
 - Integrated root popup view (`App.jsx`) with reactive `chrome.storage.onChanged` listener, theme color injection, and tab navigation.
 - Dedicated peaceful prayer reminder page (`ReminderPage.jsx`) featuring Quranic calligraphy (QS. An-Nisa: 103), localized translations, and ready-to-pray dismissal.
 - Fullscreen ambient desk clock page (`DeskClockPage.jsx`) with scalable 3D flip digits and native fullscreen browser API support.

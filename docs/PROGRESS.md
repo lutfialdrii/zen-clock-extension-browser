@@ -15,7 +15,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ✅ Selesai |
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ✅ Selesai |
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ✅ Selesai |
-| **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Siap Dikerjakan |
+| **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ✅ Selesai |
 
 ---
 
@@ -88,7 +88,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 7: Packaging Zip & Rilis v0.0.1 ⏳
-- [ ] Buat skrip packager `scripts/package-zip.js` untuk membuat berkas `releases/extension-browser-zen-clock-0.0.1.zip`.
-- [ ] Susun dokumentasi `README.md` dan `CHANGELOG.md` rilis awal v0.0.1.
-- [ ] Uji *load unpacked* ekstensi di Chrome (`chrome://extensions`) dan Edge (`edge://extensions`).
+### Milestone 7: Packaging Zip & Rilis v0.0.1 ✅
+- [x] Buat skrip packager `scripts/package-zip.js` untuk membuat berkas `releases/extension-browser-zen-clock-0.0.1.zip`.
+- [x] Susun dokumentasi `README.md` dan `CHANGELOG.md` rilis awal v0.0.1.
+- [x] Uji build dan packaging release zip lengkap (122 KB) siap publish ke Chrome Web Store & Edge Add-ons.
