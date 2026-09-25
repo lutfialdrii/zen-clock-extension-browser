@@ -1,0 +1,175 @@
+:root {
+  --bg-color: #0c0d10;
+  --zen-accent: #fbbf24;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reminder-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 30%, rgba(251, 191, 36, 0.08) 0%, rgba(12, 13, 16, 1) 70%);
+}
+
+.reminder-card {
+  max-width: 580px;
+  width: 100%;
+  background-color: #14161e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.reminder-icon-ring {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.reminder-compass {
+  color: var(--zen-accent, #fbbf24);
+}
+
+.reminder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 14px;
+  letter-spacing: 0.05em;
+}
+
+.reminder-badge .bullet {
+  color: var(--zen-accent, #fbbf24);
+}
+
+.reminder-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+}
+
+/* Quran Verse Card */
+.quran-quote-card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.025);
+  border-left: 3px solid var(--zen-accent, #fbbf24);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 20px;
+  margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.arabic-verse {
+  font-family: 'Amiri', 'Scheherazade', 'Traditional Arabic', serif;
+  font-size: 22px;
+  line-height: 1.8;
+  color: var(--zen-accent, #fbbf24);
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+.quran-translation {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+.quran-reference {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
+/* Actions */
+.reminder-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.reminder-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--zen-accent, #fbbf24);
+  color: #14161d;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.35);
+  transition: all 0.2s ease;
+}
+
+.reminder-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(251, 191, 36, 0.5);
+}
+
+.reminder-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reminder-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.reminder-disclaimer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+}
