@@ -9,8 +9,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | Milestone | Deskripsi | Target Branch | Status |
 | :--- | :--- | :--- | :---: |
 | **M0: Fondasi Repositori & Arsitektur** | Inisialisasi repo mandiri, penyusunan arsitektur MV3, SOP branching, dan rencana implementasi | `main` | ✅ Selesai |
-| **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ⏳ Siap Dikerjakan |
-| **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ⏳ Menunggu |
+| **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ✅ Selesai |
+| **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ⏳ Sedang Berjalan |
 | **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ⏳ Menunggu |
 | **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Menunggu |
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Menunggu |
@@ -31,13 +31,13 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 1: Scaffolding Vite & Manifest V3 ⏳
-- [ ] Buat file `.gitignore` standar.
-- [ ] Konfigurasi `package.json` (React 19, Vite, `@crxjs/vite-plugin`, `adhan`, `lucide-react`).
-- [ ] Konfigurasi `manifest.json` Manifest V3 (permissions: `storage`, `alarms`, `notifications`).
-- [ ] Konfigurasi `vite.config.js` dengan integrasi CRXJS.
-- [ ] Buat file `popup.html` dan letakkan ikon di `public/icons/` (16x16, 48x48, 128x128).
-- [ ] Jalankan `npm install` dan verifikasi `npm run build`.
+### Milestone 1: Scaffolding Vite & Manifest V3 ✅
+- [x] Buat file `.gitignore` standar.
+- [x] Konfigurasi `package.json` (React 19, Vite, `@crxjs/vite-plugin`, `adhan`, `lucide-react`).
+- [x] Konfigurasi `manifest.json` Manifest V3 (permissions: `storage`, `alarms`, `notifications`).
+- [x] Konfigurasi `vite.config.js` dengan integrasi CRXJS.
+- [x] Buat file `popup.html` dan letakkan ikon di `public/icons/` (16x16, 48x48, 128x128).
+- [x] Jalankan `npm install` dan verifikasi `npm run build`.
 
 ---
 
