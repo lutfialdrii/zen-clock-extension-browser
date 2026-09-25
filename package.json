@@ -1,0 +1,48 @@
+{
+  "name": "extension-browser-zen-clock",
+  "displayName": "Zen Clock: Pomodoro & Muslim Prayer Times",
+  "description": "A mindful 3D retro mechanical flip clock, background Pomodoro timer, and automated Muslim prayer times with Kemenag RI standards for Google Chrome & Microsoft Edge.",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "lutfialdrii",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lutfialdrii/extension-browser-zen-clock.git"
+  },
+  "keywords": [
+    "zen",
+    "clock",
+    "flip clock",
+    "pomodoro",
+    "timer",
+    "productivity",
+    "prayer times",
+    "muslim",
+    "jadwal sholat",
+    "adhan",
+    "chrome extension",
+    "edge extension"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "node --test tests/*.test.js",
+    "package:zip": "npm run build && node scripts/package-zip.js"
+  },
+  "dependencies": {
+    "adhan": "^4.4.3",
+    "lucide-react": "^1.7.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.28",
+    "@types/chrome": "^0.0.306",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "archiver": "^7.0.1",
+    "vite": "^8.0.1"
+  }
+}

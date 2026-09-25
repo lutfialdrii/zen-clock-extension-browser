@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Zen Clock: Pomodoro & Muslim Prayer Times",
+  "version": "0.0.1",
+  "description": "A mindful 3D retro mechanical flip clock, background Pomodoro timer, and automated Muslim prayer times with Kemenag RI standards for Google Chrome & Microsoft Edge.",
+  "icons": {
+    "16": "public/icons/icon-16.png",
+    "48": "public/icons/icon-48.png",
+    "128": "public/icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Zen Clock",
+    "default_icon": {
+      "16": "public/icons/icon-16.png",
+      "48": "public/icons/icon-48.png",
+      "128": "public/icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/serviceWorker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ]
+}
