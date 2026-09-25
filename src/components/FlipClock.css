@@ -1,0 +1,173 @@
+.clock-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.clock-wrapper-popup {
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.clock-wrapper-full {
+  gap: clamp(20px, 4vw, 40px);
+  padding: 20px 0;
+}
+
+/* Flip Clock Card Container */
+.flip-clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock-wrapper-popup .flip-clock {
+  gap: 10px;
+}
+
+.clock-wrapper-full .flip-clock {
+  gap: clamp(10px, 2vw, 24px);
+}
+
+/* Flip Unit Dimensions */
+.clock-wrapper-popup .flip-unit-container {
+  display: block;
+  position: relative;
+  width: 74px;
+  height: 98px;
+  perspective: 1000px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.clock-wrapper-full .flip-unit-container {
+  display: block;
+  position: relative;
+  width: clamp(74px, 16vw, 160px);
+  height: clamp(98px, 22vw, 220px);
+  perspective: 1200px;
+  border-radius: clamp(8px, 1.8vw, 16px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Flip Card Faces */
+.flip-card {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  border-radius: inherit;
+  background-color: #1a1c22;
+}
+
+.clock-wrapper-popup .flip-card {
+  font-size: 52px;
+}
+
+.clock-wrapper-full .flip-card {
+  font-size: clamp(52px, 11vw, 115px);
+}
+
+.flip-card-half {
+  display: flex;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background-color: #1a1c22;
+  color: #f0f2f5;
+  text-align: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.flip-card-top {
+  top: 0;
+  align-items: flex-end;
+  transform-origin: 50% 100%;
+  border-radius: inherit;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1.5px solid #08090a;
+}
+
+.flip-card-top span {
+  transform: translateY(50%);
+}
+
+.flip-card-bottom {
+  bottom: 0;
+  align-items: flex-start;
+  transform-origin: 50% 0%;
+  border-radius: inherit;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.flip-card-bottom span {
+  transform: translateY(-50%);
+}
+
+.flip-card-top-static {
+  z-index: 1;
+}
+
+.flip-card-bottom-static {
+  z-index: 1;
+}
+
+.flip-anim-top {
+  z-index: 2;
+  animation: turnTop 0.38s cubic-bezier(0.37, 0, 0.63, 1) forwards;
+}
+
+.flip-anim-bottom {
+  z-index: 2;
+  transform: rotateX(90deg);
+  animation: turnBottom 0.38s cubic-bezier(0.37, 0, 0.63, 1) 0.38s forwards;
+}
+
+@keyframes turnTop {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes turnBottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+/* Date Display */
+.date-display {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.clock-wrapper-full .date-display {
+  font-size: clamp(12px, 1.6vw, 16px);
+  letter-spacing: 0.18em;
+}

@@ -12,8 +12,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ✅ Selesai |
 | **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ✅ Selesai |
 | **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ✅ Selesai |
-| **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Siap Dikerjakan |
-| **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Menunggu |
+| **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ✅ Selesai |
+| **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Siap Dikerjakan |
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Menunggu |
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Menunggu |
 
@@ -59,10 +59,10 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 4: Popup UI (3D Flip Clock & Jadwal Sholat) ⏳
-- [ ] Implementasikan kartu 3D flip mekanik responsif `src/components/FlipClock.jsx` dan styling 380px `FlipClock.css`.
-- [ ] Implementasikan komponen jadwal sholat `src/components/PrayerTime.jsx` dan `PrayerTime.css`.
-- [ ] Hubungkan logika tanggal agar sholat Dzuhur otomatis berlabel "Jum'at" pada hari Jumat di UI popup.
+### Milestone 4: Popup UI (3D Flip Clock & Jadwal Sholat) ✅
+- [x] Implementasikan kartu 3D flip mekanik responsif `src/components/FlipClock.jsx` dan styling 380px `FlipClock.css`.
+- [x] Implementasikan komponen jadwal sholat `src/components/PrayerTime.jsx` dan `PrayerTime.css`.
+- [x] Hubungkan logika tanggal agar sholat Dzuhur otomatis berlabel "Jum'at" pada hari Jumat di UI popup.
 
 ---
 
