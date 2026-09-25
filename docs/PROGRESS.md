@@ -13,8 +13,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ✅ Selesai |
 | **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ✅ Selesai |
 | **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ✅ Selesai |
-| **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Siap Dikerjakan |
-| **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Menunggu |
+| **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ✅ Selesai |
+| **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Siap Dikerjakan |
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ⏳ Menunggu |
 
 ---
@@ -66,13 +66,15 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 5: Pomodoro Timer 2-Kartu & Settings Modal ⏳
-- [ ] Implementasikan `src/components/PomodoroTimer.jsx` (2 kartu menit & detik yang terhubung ke service worker).
-- [ ] Implementasikan `src/components/SettingsModal.jsx`:
-  - Pencarian kota global & daftar kota populer di Indonesia.
-  - Penyesuaian koreksi menit (+/- offset) tiap waktu sholat.
+### Milestone 5: Pomodoro Timer 2-Kartu & Settings Modal ✅
+- [x] Implementasikan `src/components/PomodoroTimer.jsx` (2 kartu menit & detik yang terhubung ke service worker).
+- [x] Implementasikan `src/components/CityPickerModal.jsx` (pencarian kota global & daftar kota populer di Indonesia).
+- [x] Implementasikan `src/components/AdjustModal.jsx` (penyesuaian koreksi menit +/- offset tiap waktu sholat).
+- [x] Implementasikan `src/components/SettingsModal.jsx`:
+  - Parameterized toggle buka tab pengingat hening otomatis (`autoOpenReminderTab`).
   - Pemilihan 6 warna tema + kustom kode HEX.
   - Penggantian bahasa (ID/EN).
+  - Pengaturan durasi sesi kerja dan istirahat Pomodoro.
 
 ---
 
