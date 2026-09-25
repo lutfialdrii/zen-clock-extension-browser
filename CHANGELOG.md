@@ -1,0 +1,16 @@
+# Changelog
+
+All notable changes to the "Zen Clock: Pomodoro & Muslim Prayer Times" browser extension will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Standard Kemenag RI calculation engine with +2m safety buffer (ihtiyat) for Fajr, Dhuhr, Asr, Maghrib, Isha, and -2m for Sunrise.
+- Automatic Friday Dhuhr rename to "Jum'at" in both Indonesian and English.
+- Complete bilingual i18n dictionary (Bahasa Indonesia & English).
+- Preset list of 30+ popular cities across Indonesia and international locations.
+- Comprehensive unit test suite covering prayer calculations, Friday renaming, and countdown formatters.
+- Project scaffolding with Manifest V3, React 19, and Vite (@crxjs/vite-plugin).

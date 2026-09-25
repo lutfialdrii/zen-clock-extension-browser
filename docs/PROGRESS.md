@@ -10,8 +10,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | :--- | :--- | :--- | :---: |
 | **M0: Fondasi Repositori & Arsitektur** | Inisialisasi repo mandiri, penyusunan arsitektur MV3, SOP branching, dan rencana implementasi | `main` | ✅ Selesai |
 | **M1: Scaffolding Vite & Manifest V3** | Setup package.json, vite.config.js dengan @crxjs, manifest.json, popup.html, dan ikon aset | `feat/scaffold-mv3-vite` | ✅ Selesai |
-| **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ⏳ Sedang Berjalan |
-| **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ⏳ Menunggu |
+| **M2: Prayer Times Engine & TDD** | Standar Kemenag RI (+2m buffer), auto-rename Jum'at di hari Jumat, kamus i18n, unit test 100% | `feat/kemenag-prayer-engine` | ✅ Selesai |
+| **M3: Service Worker, Alarms & Badge** | Background timer di MV3, chrome.alarms, badge countdown toolbar, notifikasi sistem OS | `feat/background-service-worker` | ⏳ Siap Dikerjakan |
 | **M4: Popup UI (Flip Clock & Sholat)** | Kartu 3D Flip Clock proporsional 380px, kartu waktu sholat terdekat, tabel jadwal 6 waktu | `feat/popup-ui-flipclock` | ⏳ Menunggu |
 | **M5: Pomodoro Timer & Settings** | Flip timer 2-kartu tersinkronisasi ke background, modal ganti kota, koreksi waktu, warna tema, bahasa | `feat/popup-pomodoro-settings` | ⏳ Menunggu |
 | **M6: Integrasi Root App & Theme Sync** | Navigasi tab popup, integrasi reaktif chrome.storage.onChanged, verifikasi end-to-end | `feat/integration-root-app` | ⏳ Menunggu |
@@ -41,11 +41,11 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 
 ---
 
-### Milestone 2: Prayer Times Engine, i18n & TDD ⏳
-- [ ] Buat unit tests di `tests/prayerHelper.test.js` (perhitungan Kemenag, auto-rename Jum'at di hari Jumat).
-- [ ] Implementasikan kamus terjemahan `src/utils/i18n.js` (Bahasa Indonesia & English).
-- [ ] Implementasikan modul perhitungan astronomi `src/utils/prayerHelper.js`.
-- [ ] Jalankan `npm test` menggunakan `node --test` dan pastikan 100% lulus.
+### Milestone 2: Prayer Times Engine, i18n & TDD ✅
+- [x] Buat unit tests di `tests/prayerHelper.test.js` (perhitungan Kemenag, auto-rename Jum'at di hari Jumat).
+- [x] Implementasikan kamus terjemahan `src/utils/i18n.js` (Bahasa Indonesia & English).
+- [x] Implementasikan modul perhitungan astronomi `src/utils/prayerHelper.js`.
+- [x] Jalankan `npm test` menggunakan `node --test` dan pastikan 100% lulus.
 
 ---
 
