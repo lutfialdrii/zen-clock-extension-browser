@@ -9,6 +9,7 @@ export default function PomodoroTimer({
   settings,
   pomodoroState,
   onPomodoroAction,
+  variant = 'popup',
 }) {
   const [localTimeLeft, setLocalTimeLeft] = useState(
     pomodoroState?.timeLeft ?? (settings?.workDuration ? settings.workDuration * 60 : 25 * 60)
@@ -96,8 +97,10 @@ export default function PomodoroTimer({
   const seconds = localTimeLeft % 60;
   const t = getTranslations(language);
 
+  const isFull = variant === 'full';
+
   return (
-    <div className="pomodoro-container">
+    <div className={`pomodoro-container ${isFull ? 'pomodoro-container-full' : 'pomodoro-container-popup'}`}>
       <div className="pomodoro-header">
         <button
           className={`pomodoro-pill-tab ${mode === 'work' ? 'active' : ''}`}
@@ -125,7 +128,11 @@ export default function PomodoroTimer({
           aria-label={isRunning ? t.ui.pause : t.ui.start}
           title={isRunning ? t.ui.pause : t.ui.start}
         >
-          {isRunning ? <Pause size={18} /> : <Play size={18} className="play-icon" />}
+          {isRunning ? (
+            <Pause size={isFull ? 24 : 18} />
+          ) : (
+            <Play size={isFull ? 24 : 18} className="play-icon" />
+          )}
         </button>
         <button
           className="pomodoro-btn-secondary"
@@ -133,7 +140,7 @@ export default function PomodoroTimer({
           aria-label={t.ui.reset}
           title={t.ui.reset}
         >
-          <RotateCcw size={16} />
+          <RotateCcw size={isFull ? 20 : 16} />
         </button>
       </div>
     </div>
