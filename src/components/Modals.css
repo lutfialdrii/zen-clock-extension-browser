@@ -333,6 +333,25 @@
 }
 
 /* Adjust Stepper List */
+.adjust-dialog {
+  max-width: 360px;
+}
+
+.adjust-modal-subtitle {
+  padding: 6px 14px 2px 14px;
+  line-height: 1.4;
+}
+
+.adjust-city-highlight {
+  color: #f1f5f9;
+}
+
+.adjust-subtitle-hint {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 2px;
+}
+
 .adjust-list {
   padding: 8px 14px;
   display: flex;
@@ -344,21 +363,84 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 8px;
+  gap: 8px;
+  padding: 6px 10px;
   background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.adjust-item.modified-row {
+  background-color: rgba(251, 191, 36, 0.04);
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+.adjust-item-label-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 68px;
 }
 
 .adjust-label {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 500;
-  color: #e2e8f0;
+  color: #f1f5f9;
+}
+
+.adjust-base-hint {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: -0.01em;
+}
+
+.adjust-time-preview-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.adjust-time-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.adjust-time-pill.modified {
+  background-color: rgba(251, 191, 36, 0.14);
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.adjust-time-icon {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.adjust-time-pill.modified .adjust-time-icon {
+  color: var(--zen-accent, #fbbf24);
+}
+
+.adjust-time-text {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #f8fafc;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.adjust-time-pill.modified .adjust-time-text {
+  color: var(--zen-accent, #fbbf24);
 }
 
 .adjust-stepper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .stepper-btn {
@@ -387,7 +469,7 @@
 .stepper-val {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
-  min-width: 38px;
+  min-width: 36px;
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
 }

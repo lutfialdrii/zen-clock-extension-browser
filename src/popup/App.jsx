@@ -183,6 +183,7 @@ export default function App() {
       <AdjustModal
         isOpen={isAdjustOpen}
         onClose={() => setIsAdjustOpen(false)}
+        city={settings?.city}
         adjustments={settings?.adjustments}
         onSaveAdjustments={(adjustments) => handleUpdateSettings({ adjustments })}
         language={language}

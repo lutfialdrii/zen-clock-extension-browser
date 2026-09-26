@@ -21,6 +21,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.3: Prayer Alarms & Reminder Reliability** | Exact timestamp alarm scheduling, toleransi 15m safety net, fallback window, tombol test | `fix/prayer-alarm-scheduler-and-reminder` | ✅ Selesai |
 | **M7.4: Full City Catalog, Global Search & GPS** | 500+ kota/kabupaten se-Indonesia (38 provinsi), pencarian global OSM Nominatim, GPS otomatis, timezone-aware | `feat/full-city-catalog-and-global-search` | ✅ Selesai |
 | **M7.5: Settings Panel City & Adjust Navigation** | Integrasi navigasi pemilihan kota dan koreksi jam sholat langsung di panel Setting | `feat/settings-panel-city-and-adjust` | ✅ Selesai |
+| **M7.6: Live Prayer Time Preview in Adjust Modal** | Pratinjau langsung waktu sholat hasil koreksi menit secara real-time di modal penyesuaian | `feat/adjust-modal-live-time-preview` | ✅ Selesai |
 
 
 
@@ -152,6 +153,18 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Tambahkan kamus terjemahan dwibahasa di `src/utils/i18n.js` (`locationAndPrayer`, `adjustPrayerTimes`, `adjustPrayerTimesDesc`, `change`, `adjust`).
 - [x] Buat unit test `tests/settingsNavigation.test.js` (28/28 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.6: Live Prayer Time Preview in Adjust Modal ✅
+- [x] Integrasikan perhitungan waktu sholat dinamis (`calculatePrayerTimes`) di dalam `AdjustModal.jsx` berbasis lokasi kota aktif (`city`).
+- [x] Tampilkan *pill* pratinjau jam sholat yang berubah secara real-time saat tombol stepper `+` atau `-` ditekan (misal `04:26` -> `04:28`).
+- [x] Berikan sorotan visual (warna aksen tema) dan keterangan waktu dasar (`asli: 04:26` / `base: 04:26`) pada baris waktu sholat yang dimodifikasi.
+- [x] Tampilkan nama kota dan wilayah pada subtitle `AdjustModal` untuk memperjelas konteks jadwal sholat yang sedang disesuaikan.
+- [x] Sambungkan prop `city={settings?.city}` ke komponen `AdjustModal` pada `App.jsx` dan `DeskClockPage.jsx`.
+- [x] Buat unit test `tests/adjustTimePreview.test.js` (30/30 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
 
 
 

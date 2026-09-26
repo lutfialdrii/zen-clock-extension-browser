@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Background Service Worker reactive storage listener ensuring instant recalculation when location or prayer offsets are changed.
 
 ### Added
+- Real-time dynamic prayer time preview in Adjust Time modal (`AdjustModal.jsx` & `Modals.css`), displaying the exact resulting schedule (e.g. `04:28`) alongside the original base time (`asli: 04:26`) as users adjust minute offsets (-15m to +15m).
 - Integrated City Selection and Prayer Time Adjustment navigation directly inside the Settings Panel (`SettingsModal.jsx`), displaying the current city, timezone badge, active adjustment status, and one-click triggers without relying exclusively on the next prayer card hover.
 - Comprehensive database of all 514 cities & regencies across 38 provinces in Indonesia (`src/utils/citiesData.js`) plus major international cities with official IANA timezone mappings (`Asia/Jakarta`, `Asia/Makassar`, `Asia/Jayapura`, etc.).
 - Global worldwide location search via OpenStreetMap Nominatim API (`https://nominatim.openstreetmap.org/search`), allowing prayer time calculations for any destination or country worldwide.
