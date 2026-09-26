@@ -261,3 +261,18 @@ export function getUpcomingPrayerAlarms(allPrayers, now = new Date()) {
     }));
 }
 
+/**
+ * Constructs a safe, fully-qualified reminder tab URL with query parameters.
+ * Cleans the base URL so that query strings are NOT embedded inside chrome.runtime.getURL(),
+ * preventing Chrome's ERR_FILE_NOT_FOUND file path resolver error.
+ */
+export function buildReminderUrl(baseUrl, prayerKey, cityName) {
+  const cleanBase = baseUrl ? baseUrl.split('?')[0].split('#')[0] : 'reminder.html';
+  const params = new URLSearchParams();
+  if (prayerKey) params.set('prayer', prayerKey);
+  if (cityName) params.set('city', cityName);
+
+  const query = params.toString();
+  return query ? `${cleanBase}?${query}` : cleanBase;
+}
+

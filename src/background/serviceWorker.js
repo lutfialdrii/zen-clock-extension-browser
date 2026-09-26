@@ -8,6 +8,7 @@ import {
   getPrayerName,
   shouldTriggerPrayerAlert,
   getUpcomingPrayerAlarms,
+  buildReminderUrl,
   PRAYER_ALERT_WINDOW_SECONDS,
 } from '../utils/prayerHelper.js';
 import {
@@ -226,7 +227,8 @@ async function triggerPrayerAlert(prayerKey, prayerDate, settings, isTest = fals
 
   // 1. Parameterized: Auto open reminder.html tab (default: true)
   if (settings.autoOpenReminderTab !== false || isTest) {
-    const reminderUrl = chrome.runtime.getURL(`reminder.html?prayer=${prayerKey}&city=${encodeURIComponent(cityName)}`);
+    const baseReminderUrl = chrome.runtime.getURL('reminder.html');
+    const reminderUrl = buildReminderUrl(baseReminderUrl, prayerKey, cityName);
     try {
       chrome.tabs.create({ url: reminderUrl, active: true }, (tab) => {
         if (chrome.runtime.lastError) {
@@ -395,13 +397,19 @@ async function handlePomodoroFinished() {
  */
 chrome.notifications.onButtonClicked.addListener((notificationId) => {
   if (notificationId.startsWith('zen_prayer_')) {
-    chrome.tabs.create({ url: chrome.runtime.getURL('reminder.html') });
+    const parts = notificationId.split('_');
+    const prayerKey = parts[2] || 'dhuhr';
+    const reminderUrl = buildReminderUrl(chrome.runtime.getURL('reminder.html'), prayerKey);
+    chrome.tabs.create({ url: reminderUrl });
   }
 });
 
 chrome.notifications.onClicked.addListener((notificationId) => {
   if (notificationId.startsWith('zen_prayer_')) {
-    chrome.tabs.create({ url: chrome.runtime.getURL('reminder.html') });
+    const parts = notificationId.split('_');
+    const prayerKey = parts[2] || 'dhuhr';
+    const reminderUrl = buildReminderUrl(chrome.runtime.getURL('reminder.html'), prayerKey);
+    chrome.tabs.create({ url: reminderUrl });
   }
 });
 
