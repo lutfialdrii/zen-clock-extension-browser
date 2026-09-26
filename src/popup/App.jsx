@@ -37,6 +37,11 @@ export default function App() {
       }
     });
 
+    // Check prayer times immediately on popup open
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      chrome.runtime.sendMessage({ type: 'CHECK_PRAYER_NOW' });
+    }
+
     // Listen to reactive storage changes
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.onChanged) {
       const handleStorageChange = (changes, area) => {
