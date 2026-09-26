@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import { Settings, X, Check, Palette, Globe, Bell, Clock, Compass } from 'lucide-react';
+import { Settings, X, Check, Palette, Globe, Bell, Clock, Compass, MapPin, Sliders, ChevronRight } from 'lucide-react';
 import { getTranslations } from '../utils/i18n.js';
 import './Modals.css';
+
+function formatTzBadge(timezone) {
+  if (!timezone) return null;
+  if (timezone === 'Asia/Jakarta') return 'WIB';
+  if (timezone === 'Asia/Makassar') return 'WITA';
+  if (timezone === 'Asia/Jayapura') return 'WIT';
+  const parts = timezone.split('/');
+  return parts[parts.length - 1].replace(/_/g, ' ');
+}
 
 const PRESET_THEMES = [
   { name: 'Warm Amber', hex: '#fbbf24' },
@@ -17,6 +26,8 @@ export default function SettingsModal({
   onClose,
   settings,
   onSaveSettings,
+  onOpenCityPicker,
+  onOpenAdjustModal,
 }) {
   const language = settings?.language || 'id';
   const t = getTranslations(language);
@@ -52,10 +63,28 @@ export default function SettingsModal({
     }
   };
 
+  const handleOpenCityPicker = () => {
+    onSaveSettings(localSettings);
+    if (onOpenCityPicker) {
+      onOpenCityPicker();
+    }
+  };
+
+  const handleOpenAdjustModal = () => {
+    onSaveSettings(localSettings);
+    if (onOpenAdjustModal) {
+      onOpenAdjustModal();
+    }
+  };
+
   const handleSave = () => {
     onSaveSettings(localSettings);
     onClose();
   };
+
+  const city = settings?.city || { name: 'Jakarta', region: 'DKI Jakarta', lat: -6.2088, lng: 106.8456, timezone: 'Asia/Jakarta' };
+  const tzBadge = formatTzBadge(city.timezone);
+  const hasCustomAdjustments = settings?.adjustments && Object.values(settings.adjustments).some((v) => Number(v) !== 0);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -71,6 +100,72 @@ export default function SettingsModal({
         </div>
 
         <div className="settings-scroll-area">
+          {/* Section: Location & Prayer Times */}
+          <div className="settings-section">
+            <div className="section-label">
+              <MapPin size={13} />
+              <span>{t.ui.locationAndPrayer}</span>
+            </div>
+
+            {/* City Selection Row */}
+            <div
+              className="settings-action-row"
+              onClick={handleOpenCityPicker}
+              role="button"
+              tabIndex={0}
+              title={language === 'en' ? 'Click to select or search city' : 'Klik untuk memilih atau mencari kota'}
+            >
+              <div className="action-row-left">
+                <div className="action-row-icon">
+                  <MapPin size={14} />
+                </div>
+                <div className="action-row-info">
+                  <div className="action-row-title-wrap">
+                    <span className="action-row-title">{city.name}</span>
+                    {tzBadge && <span className="action-row-badge">{tzBadge}</span>}
+                  </div>
+                  <span className="action-row-desc">
+                    {city.region || (language === 'en' ? 'Select city / location' : 'Pilih kota / lokasi')}
+                  </span>
+                </div>
+              </div>
+              <div className="action-row-right">
+                <span className="action-row-btn-text">{t.ui.change}</span>
+                <ChevronRight size={14} className="action-row-chevron" />
+              </div>
+            </div>
+
+            {/* Adjust Prayer Times Row */}
+            <div
+              className="settings-action-row"
+              onClick={handleOpenAdjustModal}
+              role="button"
+              tabIndex={0}
+              title={language === 'en' ? 'Adjust minute offsets for prayer times' : 'Sesuaikan koreksi menit jadwal sholat'}
+            >
+              <div className="action-row-left">
+                <div className="action-row-icon">
+                  <Sliders size={14} />
+                </div>
+                <div className="action-row-info">
+                  <div className="action-row-title-wrap">
+                    <span className="action-row-title">{t.ui.adjustPrayerTimes}</span>
+                    {hasCustomAdjustments && (
+                      <span className="action-row-badge active">
+                        {language === 'en' ? 'Adjusted' : 'Disesuaikan'}
+                      </span>
+                    )}
+                  </div>
+                  <span className="action-row-desc">{t.ui.adjustPrayerTimesDesc}</span>
+                </div>
+              </div>
+              <div className="action-row-right">
+                <span className="action-row-btn-text">{t.ui.adjust}</span>
+                <ChevronRight size={14} className="action-row-chevron" />
+              </div>
+            </div>
+          </div>
+
           {/* Section: Language */}
           <div className="settings-section">
             <div className="section-label">
