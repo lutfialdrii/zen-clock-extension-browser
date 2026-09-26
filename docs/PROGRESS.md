@@ -24,6 +24,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.6: Live Prayer Time Preview in Adjust Modal** | Pratinjau langsung waktu sholat hasil koreksi menit secara real-time di modal penyesuaian | `feat/adjust-modal-live-time-preview` | ✅ Selesai |
 | **M7.7: Support Creator & Project Backing** | Widget apresiasi pengembang di Settings (Saweria & Star GitHub), modular config, dan dokumentasi README | `feat/support-creator-widget` | ✅ Selesai |
 | **M7.8: Chrome Web Store Pre-Submission Readiness** | Validasi batas deskripsi (130 char <= 132), normalisasi icon path, perbaikan memory leak, CHROMEWEBSTORE.md | `fix/cws-pre-submission-readiness` | ✅ Selesai |
+| **M7.9: Reminder Tab URL & ERR_FILE_NOT_FOUND Fix** | Pemisahan path file base dari query params pada `chrome.runtime.getURL`, helper `buildReminderUrl`, dan parsing hash | `fix/reminder-tab-url-not-found` | ✅ Selesai |
 
 
 
@@ -188,6 +189,16 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Optimalkan inisialisasi alarm service worker (`setupAlarms`) agar idempoten dan tidak membuat ulang alarm yang sudah ada.
 - [x] Susun dokumen panduan lengkap pengajuan ke toko ekstensi (`CHROMEWEBSTORE.md`) yang memuat justifikasi izin, pernyataan tujuan tunggal, dan kebijakan privasi.
 - [x] Verifikasi penuh: `npm test` (32/32 lulus) dan `npm run package:zip` (127.08 KB).
+
+---
+
+### Milestone 7.9: Reminder Tab URL & ERR_FILE_NOT_FOUND Fix ✅
+- [x] Analisis akar masalah `ERR_FILE_NOT_FOUND`: Pemanggilan `chrome.runtime.getURL('reminder.html?prayer=...')` menyebabkan Chrome memperlakukan query string sebagai bagian literal dari nama file fisik di sistem berkas, sehingga gagal menemukan file.
+- [x] Implementasikan helper murni `buildReminderUrl(baseUrl, prayerKey, cityName)` di `src/utils/prayerHelper.js` yang memisahkan path fisik berkas dari query string parameters (`?prayer=...&city=...`).
+- [x] Perbarui pemanggilan URL pengingat di `src/background/serviceWorker.js` pada pembukaan tab otomatis (`triggerPrayerAlert`) dan event klik notifikasi OS (`onButtonClicked` & `onClicked`).
+- [x] Tambahkan dukungan parsing parameter ganda (`searchParams` dan `hashParams`) pada `src/reminder/ReminderPage.jsx` untuk menjamin kompatibilitas pembukaan tab dalam berbagai format URL.
+- [x] Buat unit test `buildReminderUrl` di `tests/prayerHelper.test.js` (33/33 tests passing).
+- [x] Lakukan kompilasi dan pemaketan rilis: `npm test && npm run package:zip` (127.19 KB).
 
 
 

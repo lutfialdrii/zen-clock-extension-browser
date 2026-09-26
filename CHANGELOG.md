@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-09-26
 
 ### Fixed & Hardened
+- Fixed reminder tab opening failure (`ERR_FILE_NOT_FOUND`) by isolating the physical file path in `chrome.runtime.getURL('reminder.html')` and appending query parameters via helper `buildReminderUrl`, preventing Chrome's file resolver from interpreting query strings as literal file paths.
+- Added dual search and hash parameter parsing (`window.location.search` & `window.location.hash`) in `ReminderPage.jsx` for resilient tab loading.
 - Shortened `manifest.json` description to 130 characters to strictly respect the Chrome Web Store Developer Dashboard 132-character maximum limit.
 - Normalized icon paths across `manifest.json` and `serviceWorker.js` to `icons/`, eliminating duplicate bundled icon assets and reducing package size from 140.33 KB to 127.08 KB.
 - Fixed timer interval memory leak in `FlipClock.jsx` by properly capturing and clearing the interval timer in `useEffect` unmount cleanup.

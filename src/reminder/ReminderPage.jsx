@@ -9,9 +9,10 @@ export default function ReminderPage() {
   const [settings, setSettings] = useState(null);
   const [now, setNow] = useState(new Date());
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const prayerParam = urlParams.get('prayer') || 'dhuhr';
-  const cityParam = urlParams.get('city');
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.startsWith('#') ? window.location.hash.slice(1) : window.location.hash);
+  const prayerParam = searchParams.get('prayer') || hashParams.get('prayer') || 'dhuhr';
+  const cityParam = searchParams.get('city') || hashParams.get('city');
 
   useEffect(() => {
     getSettings().then((s) => {

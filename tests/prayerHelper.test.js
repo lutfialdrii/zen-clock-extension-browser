@@ -102,3 +102,20 @@ test('formatCountdownHoursMinutes - Formats correctly in both id and en', () => 
   assert.equal(formatCountdownHoursMinutes(7320, 'en'), '2 hrs 2 mins');
 });
 
+test('buildReminderUrl - Properly formats URL with query params without embedding in base path', async () => {
+  const { buildReminderUrl } = await import('../src/utils/prayerHelper.js');
+
+  const base = 'chrome-extension://dmnfclhpjfonamocklepmgcpldnohllf/reminder.html';
+  const url1 = buildReminderUrl(base, 'dhuhr', 'Jakarta');
+  assert.equal(url1, 'chrome-extension://dmnfclhpjfonamocklepmgcpldnohllf/reminder.html?prayer=dhuhr&city=Jakarta');
+
+  // Strips accidental pre-existing queries to avoid duplicate '?'
+  const dirtyBase = 'chrome-extension://dmnfclhpjfonamocklepmgcpldnohllf/reminder.html?prayer=old';
+  const url2 = buildReminderUrl(dirtyBase, 'asr', 'Bandung');
+  assert.equal(url2, 'chrome-extension://dmnfclhpjfonamocklepmgcpldnohllf/reminder.html?prayer=asr&city=Bandung');
+
+  // Handles missing city or base safely
+  const url3 = buildReminderUrl('', 'fajr');
+  assert.equal(url3, 'reminder.html?prayer=fajr');
+});
+
