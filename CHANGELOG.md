@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Background Service Worker reactive storage listener ensuring instant recalculation when location or prayer offsets are changed.
 
 ### Added
+- Integrated Support the Creator section inside the Settings Panel (`SettingsModal.jsx` & `Modals.css`), offering voluntary Saweria donation links (GoPay, OVO, Dana, QRIS) and GitHub repository star callout cards.
+- Centralized modular support links configuration (`src/utils/supportLinks.js`) for extensible creator support options without hardcoded component logic.
+- Dedicated "Support the Creator / Dukung Pengembang" sections added to `README.md` and `README.id.md`.
 - Real-time dynamic prayer time preview in Adjust Time modal (`AdjustModal.jsx` & `Modals.css`), displaying the exact resulting schedule (e.g. `04:28`) alongside the original base time (`asli: 04:26`) as users adjust minute offsets (-15m to +15m).
 - Integrated City Selection and Prayer Time Adjustment navigation directly inside the Settings Panel (`SettingsModal.jsx`), displaying the current city, timezone badge, active adjustment status, and one-click triggers without relying exclusively on the next prayer card hover.
 - Comprehensive database of all 514 cities & regencies across 38 provinces in Indonesia (`src/utils/citiesData.js`) plus major international cities with official IANA timezone mappings (`Asia/Jakarta`, `Asia/Makassar`, `Asia/Jayapura`, etc.).

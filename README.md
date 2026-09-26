@@ -119,6 +119,15 @@ This builds and packages the extension into `releases/extension-browser-zen-cloc
 
 ---
 
+## 💖 Support the Creator
+
+Zen Clock is completely free, open-source, and ad-free. If this extension brings peace and focus to your daily workflow, consider supporting its continuous development:
+
+- ☕ **Saweria**: [saweria.co/lutfialdrii](https://saweria.co/lutfialdrii) (GoPay, OVO, Dana, QRIS)
+- ⭐ **Star on GitHub**: Give this repository a star to help more people discover Zen Clock!
+
+---
+
 ## 📄 License
 
 This project is licensed under the [MIT License](./LICENSE).
