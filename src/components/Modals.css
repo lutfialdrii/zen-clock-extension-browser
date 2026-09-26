@@ -93,12 +93,70 @@
   line-height: 1.4;
 }
 
+/* City Picker Modal Enhancements */
+.city-picker-dialog {
+  max-width: 360px;
+}
+
+.gps-action-container {
+  padding: 10px 14px 4px 14px;
+}
+
+.gps-detect-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 8px;
+  color: var(--zen-accent, #fbbf24);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gps-detect-btn:hover:not(:disabled) {
+  background-color: rgba(251, 191, 36, 0.16);
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+.gps-detect-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.modal-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px 10px;
+  background-color: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 6px;
+  color: #fca5a5;
+  font-size: 10px;
+}
+
 /* Search Box (City Picker) */
 .modal-search-box {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 10px 14px 6px 14px;
+  margin: 8px 14px 6px 14px;
   padding: 6px 10px;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -122,18 +180,76 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
+.search-clear-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.online-search-trigger-wrap {
+  padding: 0 14px 6px 14px;
+}
+
+.online-search-trigger-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: rgba(59, 130, 246, 0.08);
+  border: 1px dashed rgba(59, 130, 246, 0.35);
+  border-radius: 6px;
+  color: #93c5fd;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.online-search-trigger-btn:hover:not(:disabled) {
+  background-color: rgba(59, 130, 246, 0.18);
+  border-color: rgba(59, 130, 246, 0.6);
+}
+
 /* City List */
 .city-list-container {
   overflow-y: auto;
-  max-height: 240px;
+  max-height: 250px;
   padding: 4px 8px;
+}
+
+.results-group {
+  margin-bottom: 8px;
+}
+
+.results-group-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px 6px 8px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .city-list-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.15s ease;
@@ -153,15 +269,37 @@
   flex-direction: column;
 }
 
+.city-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .city-name {
   font-size: 12px;
   font-weight: 500;
   color: #f8fafc;
 }
 
+.city-tz-badge {
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.03em;
+}
+
 .city-region {
   font-size: 10px;
   color: rgba(255, 255, 255, 0.45);
+}
+
+.city-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .city-check-icon {
@@ -170,9 +308,28 @@
 
 .empty-search-state {
   text-align: center;
-  padding: 24px;
+  padding: 20px 14px;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.4);
+}
+
+.empty-state-search-btn {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  color: #93c5fd;
+  font-size: 10.5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.empty-state-search-btn:hover {
+  background-color: rgba(59, 130, 246, 0.22);
 }
 
 /* Adjust Stepper List */

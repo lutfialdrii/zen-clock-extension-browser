@@ -29,40 +29,40 @@ export const PRAYER_NAMES = {
 };
 
 export const POPULAR_CITIES = [
-  { name: 'Jakarta', region: 'DKI Jakarta', lat: -6.2088, lng: 106.8456 },
-  { name: 'Surabaya', region: 'Jawa Timur', lat: -7.2575, lng: 112.7521 },
-  { name: 'Bandung', region: 'Jawa Barat', lat: -6.9175, lng: 107.6191 },
-  { name: 'Medan', region: 'Sumatera Utara', lat: 3.5952, lng: 98.6722 },
-  { name: 'Semarang', region: 'Jawa Tengah', lat: -6.9667, lng: 110.4167 },
-  { name: 'Makassar', region: 'Sulawesi Selatan', lat: -5.1477, lng: 119.4327 },
-  { name: 'Palembang', region: 'Sumatera Selatan', lat: -2.9761, lng: 104.7754 },
-  { name: 'Tangerang', region: 'Banten', lat: -6.1783, lng: 106.6319 },
-  { name: 'Tangerang Selatan', region: 'Banten', lat: -6.2888, lng: 106.7179 },
-  { name: 'Depok', region: 'Jawa Barat', lat: -6.4025, lng: 106.7942 },
-  { name: 'Bekasi', region: 'Jawa Barat', lat: -6.2383, lng: 106.9756 },
-  { name: 'Bogor', region: 'Jawa Barat', lat: -6.5971, lng: 106.806 },
-  { name: 'Yogyakarta', region: 'DI Yogyakarta', lat: -7.7956, lng: 110.3695 },
-  { name: 'Surakarta (Solo)', region: 'Jawa Tengah', lat: -7.5755, lng: 110.8243 },
-  { name: 'Malang', region: 'Jawa Timur', lat: -7.9666, lng: 112.6326 },
-  { name: 'Denpasar', region: 'Bali', lat: -8.6705, lng: 115.2126 },
-  { name: 'Banda Aceh', region: 'Aceh', lat: 5.5483, lng: 95.3238 },
-  { name: 'Padang', region: 'Sumatera Barat', lat: -0.9471, lng: 100.4172 },
-  { name: 'Pekanbaru', region: 'Riau', lat: 0.5071, lng: 101.4478 },
-  { name: 'Batam', region: 'Kepulauan Riau', lat: 1.1301, lng: 104.0529 },
-  { name: 'Bandar Lampung', region: 'Lampung', lat: -5.45, lng: 105.2667 },
-  { name: 'Pontianak', region: 'Kalimantan Barat', lat: -0.0263, lng: 109.3425 },
-  { name: 'Banjarmasin', region: 'Kalimantan Selatan', lat: -3.3194, lng: 114.5908 },
-  { name: 'Balikpapan', region: 'Kalimantan Timur', lat: -1.2379, lng: 116.8529 },
-  { name: 'Samarinda', region: 'Kalimantan Timur', lat: -0.5022, lng: 117.1536 },
-  { name: 'Manado', region: 'Sulawesi Utara', lat: 1.4748, lng: 124.8421 },
-  { name: 'Mataram', region: 'Nusa Tenggara Barat', lat: -8.5833, lng: 116.1167 },
-  { name: 'Kupang', region: 'Nusa Tenggara Timur', lat: -10.1772, lng: 123.607 },
-  { name: 'Ambon', region: 'Maluku', lat: -3.6554, lng: 128.1908 },
-  { name: 'Jayapura', region: 'Papua', lat: -2.5916, lng: 140.669 },
-  { name: 'Makkah', region: 'Saudi Arabia', lat: 21.4225, lng: 39.8262 },
-  { name: 'Madinah', region: 'Saudi Arabia', lat: 24.5247, lng: 39.5692 },
-  { name: 'Kuala Lumpur', region: 'Malaysia', lat: 3.139, lng: 101.6869 },
-  { name: 'Singapore', region: 'Singapore', lat: 1.3521, lng: 103.8198 },
+  { name: 'Jakarta', region: 'DKI Jakarta', lat: -6.2088, lng: 106.8456, timezone: 'Asia/Jakarta' },
+  { name: 'Surabaya', region: 'Jawa Timur', lat: -7.2575, lng: 112.7521, timezone: 'Asia/Jakarta' },
+  { name: 'Bandung', region: 'Jawa Barat', lat: -6.9175, lng: 107.6191, timezone: 'Asia/Jakarta' },
+  { name: 'Medan', region: 'Sumatera Utara', lat: 3.5952, lng: 98.6722, timezone: 'Asia/Jakarta' },
+  { name: 'Semarang', region: 'Jawa Tengah', lat: -6.9667, lng: 110.4167, timezone: 'Asia/Jakarta' },
+  { name: 'Makassar', region: 'Sulawesi Selatan', lat: -5.1477, lng: 119.4327, timezone: 'Asia/Makassar' },
+  { name: 'Palembang', region: 'Sumatera Selatan', lat: -2.9761, lng: 104.7754, timezone: 'Asia/Jakarta' },
+  { name: 'Tangerang', region: 'Banten', lat: -6.1783, lng: 106.6319, timezone: 'Asia/Jakarta' },
+  { name: 'Tangerang Selatan', region: 'Banten', lat: -6.2888, lng: 106.7179, timezone: 'Asia/Jakarta' },
+  { name: 'Depok', region: 'Jawa Barat', lat: -6.4025, lng: 106.7942, timezone: 'Asia/Jakarta' },
+  { name: 'Bekasi', region: 'Jawa Barat', lat: -6.2383, lng: 106.9756, timezone: 'Asia/Jakarta' },
+  { name: 'Bogor', region: 'Jawa Barat', lat: -6.5971, lng: 106.806, timezone: 'Asia/Jakarta' },
+  { name: 'Yogyakarta', region: 'DI Yogyakarta', lat: -7.7956, lng: 110.3695, timezone: 'Asia/Jakarta' },
+  { name: 'Surakarta (Solo)', region: 'Jawa Tengah', lat: -7.5755, lng: 110.8243, timezone: 'Asia/Jakarta' },
+  { name: 'Malang', region: 'Jawa Timur', lat: -7.9666, lng: 112.6326, timezone: 'Asia/Jakarta' },
+  { name: 'Denpasar', region: 'Bali', lat: -8.6705, lng: 115.2126, timezone: 'Asia/Makassar' },
+  { name: 'Banda Aceh', region: 'Aceh', lat: 5.5483, lng: 95.3238, timezone: 'Asia/Jakarta' },
+  { name: 'Padang', region: 'Sumatera Barat', lat: -0.9471, lng: 100.4172, timezone: 'Asia/Jakarta' },
+  { name: 'Pekanbaru', region: 'Riau', lat: 0.5071, lng: 101.4478, timezone: 'Asia/Jakarta' },
+  { name: 'Batam', region: 'Kepulauan Riau', lat: 1.1301, lng: 104.0529, timezone: 'Asia/Jakarta' },
+  { name: 'Bandar Lampung', region: 'Lampung', lat: -5.45, lng: 105.2667, timezone: 'Asia/Jakarta' },
+  { name: 'Pontianak', region: 'Kalimantan Barat', lat: -0.0263, lng: 109.3425, timezone: 'Asia/Jakarta' },
+  { name: 'Banjarmasin', region: 'Kalimantan Selatan', lat: -3.3194, lng: 114.5908, timezone: 'Asia/Makassar' },
+  { name: 'Balikpapan', region: 'Kalimantan Timur', lat: -1.2379, lng: 116.8529, timezone: 'Asia/Makassar' },
+  { name: 'Samarinda', region: 'Kalimantan Timur', lat: -0.5022, lng: 117.1536, timezone: 'Asia/Makassar' },
+  { name: 'Manado', region: 'Sulawesi Utara', lat: 1.4748, lng: 124.8421, timezone: 'Asia/Makassar' },
+  { name: 'Mataram', region: 'Nusa Tenggara Barat', lat: -8.5833, lng: 116.1167, timezone: 'Asia/Makassar' },
+  { name: 'Kupang', region: 'Nusa Tenggara Timur', lat: -10.1772, lng: 123.607, timezone: 'Asia/Makassar' },
+  { name: 'Ambon', region: 'Maluku', lat: -3.6554, lng: 128.1908, timezone: 'Asia/Jayapura' },
+  { name: 'Jayapura', region: 'Papua', lat: -2.5916, lng: 140.669, timezone: 'Asia/Jayapura' },
+  { name: 'Makkah', region: 'Saudi Arabia', lat: 21.4225, lng: 39.8262, timezone: 'Asia/Riyadh' },
+  { name: 'Madinah', region: 'Saudi Arabia', lat: 24.5247, lng: 39.5692, timezone: 'Asia/Riyadh' },
+  { name: 'Kuala Lumpur', region: 'Malaysia', lat: 3.139, lng: 101.6869, timezone: 'Asia/Kuala_Lumpur' },
+  { name: 'Singapore', region: 'Singapore', lat: 1.3521, lng: 103.8198, timezone: 'Asia/Singapore' },
 ];
 
 /**
@@ -112,10 +112,24 @@ export function getKemenagCalculationParameters(customAdjustments = {}) {
 }
 
 /**
- * Formats a Date object to HH:mm string (24-hour).
+ * Formats a Date object to HH:mm string (24-hour), optionally in a specific IANA timezone.
  */
-export function formatTimeHHMM(date) {
+export function formatTimeHHMM(date, timezone = null) {
   if (!date || !(date instanceof Date) || isNaN(date.getTime())) return '--:--';
+
+  if (timezone) {
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        timeZone: timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(date);
+    } catch {
+      // Fallback to local time if timezone identifier is invalid
+    }
+  }
+
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
   return `${hours}:${minutes}`;
@@ -149,13 +163,15 @@ export function calculatePrayerTimes(coords, date = new Date(), adjustments = {}
   const nextKey = (next && next !== 'none') ? next.toLowerCase() : 'fajr';
   const nextPrayerDisplayName = getPrayerName(nextKey, lang, nextTime);
 
+  const tz = coords.timezone || null;
+
   const allPrayers = [
-    { key: 'fajr', name: getPrayerName('fajr', lang, times.fajr), time: formatTimeHHMM(times.fajr), date: times.fajr },
-    { key: 'sunrise', name: getPrayerName('sunrise', lang, times.sunrise), time: formatTimeHHMM(times.sunrise), date: times.sunrise },
-    { key: 'dhuhr', name: getPrayerName('dhuhr', lang, times.dhuhr), time: formatTimeHHMM(times.dhuhr), date: times.dhuhr },
-    { key: 'asr', name: getPrayerName('asr', lang, times.asr), time: formatTimeHHMM(times.asr), date: times.asr },
-    { key: 'maghrib', name: getPrayerName('maghrib', lang, times.maghrib), time: formatTimeHHMM(times.maghrib), date: times.maghrib },
-    { key: 'isha', name: getPrayerName('isha', lang, times.isha), time: formatTimeHHMM(times.isha), date: times.isha },
+    { key: 'fajr', name: getPrayerName('fajr', lang, times.fajr), time: formatTimeHHMM(times.fajr, tz), date: times.fajr },
+    { key: 'sunrise', name: getPrayerName('sunrise', lang, times.sunrise), time: formatTimeHHMM(times.sunrise, tz), date: times.sunrise },
+    { key: 'dhuhr', name: getPrayerName('dhuhr', lang, times.dhuhr), time: formatTimeHHMM(times.dhuhr, tz), date: times.dhuhr },
+    { key: 'asr', name: getPrayerName('asr', lang, times.asr), time: formatTimeHHMM(times.asr, tz), date: times.asr },
+    { key: 'maghrib', name: getPrayerName('maghrib', lang, times.maghrib), time: formatTimeHHMM(times.maghrib, tz), date: times.maghrib },
+    { key: 'isha', name: getPrayerName('isha', lang, times.isha), time: formatTimeHHMM(times.isha, tz), date: times.isha },
   ];
 
   return {
