@@ -6,16 +6,19 @@ export default function FlipClock({ language = 'id', variant = 'popup' }) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
+    let interval = null;
     // Synchronize to the start of the next second
     const syncTimeout = setTimeout(() => {
       setTime(new Date());
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setTime(new Date());
       }, 1000);
-      return () => clearInterval(interval);
     }, 1000 - new Date().getMilliseconds());
 
-    return () => clearTimeout(syncTimeout);
+    return () => {
+      clearTimeout(syncTimeout);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   const hours = time.getHours();

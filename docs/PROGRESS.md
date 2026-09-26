@@ -23,6 +23,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.5: Settings Panel City & Adjust Navigation** | Integrasi navigasi pemilihan kota dan koreksi jam sholat langsung di panel Setting | `feat/settings-panel-city-and-adjust` | ✅ Selesai |
 | **M7.6: Live Prayer Time Preview in Adjust Modal** | Pratinjau langsung waktu sholat hasil koreksi menit secara real-time di modal penyesuaian | `feat/adjust-modal-live-time-preview` | ✅ Selesai |
 | **M7.7: Support Creator & Project Backing** | Widget apresiasi pengembang di Settings (Saweria & Star GitHub), modular config, dan dokumentasi README | `feat/support-creator-widget` | ✅ Selesai |
+| **M7.8: Chrome Web Store Pre-Submission Readiness** | Validasi batas deskripsi (130 char <= 132), normalisasi icon path, perbaikan memory leak, CHROMEWEBSTORE.md | `fix/cws-pre-submission-readiness` | ✅ Selesai |
 
 
 
@@ -175,6 +176,18 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Perbarui `README.md` dan `README.id.md` dengan seksi "💖 Support the Creator / Dukung Pengembang" serta tautan donasi sukarela.
 - [x] Buat unit test `tests/supportLinks.test.js` (32/32 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.8: Chrome Web Store Pre-Submission Readiness ✅
+- [x] Pangkas panjang teks deskripsi di `manifest.json` menjadi 130 karakter untuk mematuhi batas keras validasi Chrome Developer Dashboard (maksimal 132 karakter).
+- [x] Normalisasi jalur aset ikon dari `public/icons/` menjadi `icons/` pada `manifest.json` dan `src/background/serviceWorker.js`, mengeliminasi duplikasi aset dan memangkas ukuran paket zip dari 140.33 KB menjadi 127.08 KB.
+- [x] Perbaiki potensi kebocoran memori (memory leak) timer interval pada `FlipClock.jsx` dengan menangkap dan membersihkan `interval` pada fungsi pembersihan `useEffect`.
+- [x] Tambahkan properti zona waktu default `timezone: 'Asia/Jakarta'` pada `DEFAULT_SETTINGS.city` di `src/utils/storage.js` untuk konsistensi perhitungan waktu sholat bagi pengguna global.
+- [x] Hapus header `User-Agent` terlarang pada pemanggilan `fetch()` OpenStreetMap Nominatim di `src/components/CityPickerModal.jsx`.
+- [x] Optimalkan inisialisasi alarm service worker (`setupAlarms`) agar idempoten dan tidak membuat ulang alarm yang sudah ada.
+- [x] Susun dokumen panduan lengkap pengajuan ke toko ekstensi (`CHROMEWEBSTORE.md`) yang memuat justifikasi izin, pernyataan tujuan tunggal, dan kebijakan privasi.
+- [x] Verifikasi penuh: `npm test` (32/32 lulus) dan `npm run package:zip` (127.08 KB).
 
 
 

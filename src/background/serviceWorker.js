@@ -61,8 +61,11 @@ async function ensureDefaults() {
   await savePomodoroState(pomodoro);
 }
 
-function setupAlarms() {
-  chrome.alarms.create(ALARMS.PRAYER_CHECK, { periodInMinutes: 1 });
+async function setupAlarms() {
+  const existing = await chrome.alarms.get(ALARMS.PRAYER_CHECK);
+  if (!existing) {
+    chrome.alarms.create(ALARMS.PRAYER_CHECK, { periodInMinutes: 1 });
+  }
 }
 
 /**
@@ -247,7 +250,7 @@ async function triggerPrayerAlert(prayerKey, prayerDate, settings, isTest = fals
     try {
       chrome.notifications.create(`zen_prayer_${prayerKey}_${Date.now()}`, {
         type: 'basic',
-        iconUrl: chrome.runtime.getURL('public/icons/icon-128.png'),
+        iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
         title,
         message,
         priority: 2,
@@ -378,7 +381,7 @@ async function handlePomodoroFinished() {
 
     chrome.notifications.create(`zen_pomo_${Date.now()}`, {
       type: 'basic',
-      iconUrl: chrome.runtime.getURL('public/icons/icon-128.png'),
+      iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
       title,
       message,
       priority: 2,
