@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Settings, X, Check, Palette, Globe, Bell, Clock, Compass, MapPin, Sliders, ChevronRight } from 'lucide-react';
+import { Settings, X, Check, Palette, Globe, Bell, Clock, Compass, MapPin, Sliders, ChevronRight, Heart, Coffee, Star, ExternalLink } from 'lucide-react';
 import { getTranslations } from '../utils/i18n.js';
+import { SUPPORT_LINKS } from '../utils/supportLinks.js';
 import './Modals.css';
 
 function formatTzBadge(timezone) {
@@ -364,6 +365,55 @@ export default function SettingsModal({
                   }
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Section: Support the Creator */}
+          <div className="settings-section support-section">
+            <div className="section-label">
+              <Heart size={13} className="support-header-icon" />
+              <span>{t.ui.supportCreator}</span>
+            </div>
+            <p className="support-desc">{t.ui.supportCreatorDesc}</p>
+
+            <div className="support-cards-grid">
+              <a
+                href={SUPPORT_LINKS.saweria.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="support-card saweria-card"
+                title={t.ui.supportSaweria}
+              >
+                <div className="support-card-left">
+                  <div className="support-icon-wrap saweria-icon-wrap">
+                    <Coffee size={15} />
+                  </div>
+                  <div className="support-card-text">
+                    <span className="support-card-title">{t.ui.supportSaweria}</span>
+                    <span className="support-card-desc">{t.ui.supportSaweriaDesc}</span>
+                  </div>
+                </div>
+                <ExternalLink size={13} className="support-external-icon" />
+              </a>
+
+              <a
+                href={SUPPORT_LINKS.github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="support-card github-card"
+                title={t.ui.supportGitHub}
+              >
+                <div className="support-card-left">
+                  <div className="support-icon-wrap github-icon-wrap">
+                    <Star size={15} />
+                  </div>
+                  <div className="support-card-text">
+                    <span className="support-card-title">{t.ui.supportGitHub}</span>
+                    <span className="support-card-desc">{t.ui.supportGitHubDesc}</span>
+                  </div>
+                </div>
+                <ExternalLink size={13} className="support-external-icon" />
+              </a>
             </div>
           </div>
         </div>

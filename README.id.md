@@ -90,6 +90,15 @@ Perintah ini akan mengompilasi dan mengompres folder `dist/` ke dalam berkas ars
 
 ---
 
+## 💖 Dukung Pengembang
+
+Zen Clock bersifat gratis, open-source, dan bebas iklan selamanya. Jika ekstensi ini memberi ketenangan dan membantu fokus ibadah serta produktivitas harian Anda, pertimbangkan untuk mendukung kelanjutan pengembangannya:
+
+- ☕ **Saweria**: [saweria.co/lutfialdrii](https://saweria.co/lutfialdrii) (GoPay, OVO, Dana, QRIS)
+- ⭐ **Bintang di GitHub**: Berikan bintang pada repositori ini agar Zen Clock semakin berkembang dan bermanfaat bagi lebih banyak orang!
+
+---
+
 ## 📄 Lisensi
 
 Proyek ini dilisensikan di bawah [Lisensi MIT](./LICENSE).

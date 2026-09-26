@@ -22,6 +22,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.4: Full City Catalog, Global Search & GPS** | 500+ kota/kabupaten se-Indonesia (38 provinsi), pencarian global OSM Nominatim, GPS otomatis, timezone-aware | `feat/full-city-catalog-and-global-search` | ✅ Selesai |
 | **M7.5: Settings Panel City & Adjust Navigation** | Integrasi navigasi pemilihan kota dan koreksi jam sholat langsung di panel Setting | `feat/settings-panel-city-and-adjust` | ✅ Selesai |
 | **M7.6: Live Prayer Time Preview in Adjust Modal** | Pratinjau langsung waktu sholat hasil koreksi menit secara real-time di modal penyesuaian | `feat/adjust-modal-live-time-preview` | ✅ Selesai |
+| **M7.7: Support Creator & Project Backing** | Widget apresiasi pengembang di Settings (Saweria & Star GitHub), modular config, dan dokumentasi README | `feat/support-creator-widget` | ✅ Selesai |
 
 
 
@@ -163,6 +164,16 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Tampilkan nama kota dan wilayah pada subtitle `AdjustModal` untuk memperjelas konteks jadwal sholat yang sedang disesuaikan.
 - [x] Sambungkan prop `city={settings?.city}` ke komponen `AdjustModal` pada `App.jsx` dan `DeskClockPage.jsx`.
 - [x] Buat unit test `tests/adjustTimePreview.test.js` (30/30 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.7: Support Creator & Project Backing ✅
+- [x] Bangun modul konfigurasi tautan dukungan terpusat (`src/utils/supportLinks.js`) untuk Saweria (`https://saweria.co/lutfialdrii`) dan repositori GitHub.
+- [x] Tambahkan kamus terjemahan dwibahasa di `src/utils/i18n.js` (`supportCreator`, `supportCreatorDesc`, `supportSaweria`, `supportSaweriaDesc`, `supportGitHub`, `supportGitHubDesc`).
+- [x] Desain dan integrasikan seksi "Dukung Pengembang / Support the Creator" di dalam `SettingsModal.jsx` dengan kartu Saweria & Star GitHub yang elegan dan responsif.
+- [x] Perbarui `README.md` dan `README.id.md` dengan seksi "💖 Support the Creator / Dukung Pengembang" serta tautan donasi sukarela.
+- [x] Buat unit test `tests/supportLinks.test.js` (32/32 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
 
 
