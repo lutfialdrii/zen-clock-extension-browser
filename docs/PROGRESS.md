@@ -19,6 +19,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.1: Pre-Release Hardening** | Persistensi disk LevelDB, storage reactive listener, anti multi-state Pomodoro guard & SSOT | `fix/pomodoro-state-and-storage` | ✅ Selesai |
 | **M7.2: Pomodoro Fullscreen & Routing** | Mode Pomodoro di Desk Clock, auto-routing tab saat sesi aktif, pulsing dot indicator | `fix/pomodoro-fullscreen-and-routing` | ✅ Selesai |
 | **M7.3: Prayer Alarms & Reminder Reliability** | Exact timestamp alarm scheduling, toleransi 15m safety net, fallback window, tombol test | `fix/prayer-alarm-scheduler-and-reminder` | ✅ Selesai |
+| **M7.4: Full City Catalog, Global Search & GPS** | 500+ kota/kabupaten se-Indonesia (38 provinsi), pencarian global OSM Nominatim, GPS otomatis, timezone-aware | `feat/full-city-catalog-and-global-search` | ✅ Selesai |
 
 
 
@@ -127,5 +128,18 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Tambahkan tombol diagnostik uji coba pengingat ("Uji Notifikasi & Tab Pengingat") di `SettingsModal.jsx` untuk verifikasi instan pembukaan tab dan notifikasi OS.
 - [x] Buat unit test `tests/prayerAlarmScheduler.test.js` (22/22 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.4: Full City Catalog, Global Search & GPS Geolocation ✅
+- [x] Bangun katalog komprehensif 539+ kota dan kabupaten (`src/utils/citiesData.js`), mencakup seluruh 514 kota/kabupaten di 38 provinsi Indonesia beserta pemetaan zona waktu resmi (WIB: `Asia/Jakarta`, WITA: `Asia/Makassar`, WIT: `Asia/Jayapura`) serta kota internasional utama.
+- [x] Implementasikan pencarian global seluruh dunia menggunakan OpenStreetMap Nominatim API (`https://nominatim.openstreetmap.org/search`) untuk lokasi mana pun di dunia.
+- [x] Implementasikan deteksi lokasi instan via GPS browser (`navigator.geolocation.getCurrentPosition`) dengan reverse geocoding otomatis.
+- [x] Terapkan *Timezone-Aware Prayer Calculation* (`formatTimeHHMM(date, timezone)`) dengan `Intl.DateTimeFormat`, menjamin jadwal waktu sholat kota yang dipilih selalu tampil akurat sesuai waktu lokal kota tersebut (misal Makkah UTC+3, London UTC+0, Jayapura UTC+9) tanpa terpengaruh zona waktu komputer host peramban.
+- [x] Perbarui antarmuka modal pemilihan kota (`CityPickerModal.jsx` & `Modals.css`) dengan badge zona waktu (WIB, WITA, WIT), pengelompokan hasil pencarian global OSM, dan tombol bersihkan pencarian.
+- [x] Tambahkan kamus terjemahan bilingual (`useGps`, `detectingGps`, `gpsDenied`, `searchWorldwide`, `searchingOnline`, `globalResults`).
+- [x] Buat unit test `tests/citiesData.test.js` (26/26 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
 
 
