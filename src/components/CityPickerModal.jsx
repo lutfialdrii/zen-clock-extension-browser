@@ -56,10 +56,7 @@ export default function CityPickerModal({
 
         try {
           const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=12&addressdetails=1`,
-            {
-              headers: { 'User-Agent': 'ZenClock-Browser-Extension' },
-            }
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=12&addressdetails=1`
           );
           if (res.ok) {
             const data = await res.json();
@@ -110,10 +107,7 @@ export default function CityPickerModal({
 
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=8&addressdetails=1`,
-        {
-          headers: { 'User-Agent': 'ZenClock-Browser-Extension' },
-        }
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=8&addressdetails=1`
       );
 
       if (!res.ok) {

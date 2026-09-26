@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS = {
     region: 'DKI Jakarta',
     lat: -6.2088,
     lng: 106.8456,
+    timezone: 'Asia/Jakarta',
   },
   adjustments: {
     fajr: 0,

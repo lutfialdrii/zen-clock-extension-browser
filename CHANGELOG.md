@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-09-26
 
 ### Fixed & Hardened
+- Shortened `manifest.json` description to 130 characters to strictly respect the Chrome Web Store Developer Dashboard 132-character maximum limit.
+- Normalized icon paths across `manifest.json` and `serviceWorker.js` to `icons/`, eliminating duplicate bundled icon assets and reducing package size from 140.33 KB to 127.08 KB.
+- Fixed timer interval memory leak in `FlipClock.jsx` by properly capturing and clearing the interval timer in `useEffect` unmount cleanup.
+- Added missing default `timezone: 'Asia/Jakarta'` to `DEFAULT_SETTINGS.city` in `storage.js` to guarantee consistent prayer calculations for global users.
+- Removed forbidden `User-Agent` header in `CityPickerModal.jsx` Nominatim geocoding fetch calls per WHATWG Fetch specifications.
+- Added comprehensive Chrome Web Store and Microsoft Edge Add-ons submission guide (`CHROMEWEBSTORE.md`).
 - Exact timestamp alarm scheduling for each daily prayer time (`ZEN_PRAYER_EXACT_${key}`) using `{ when: timestamp }`, waking the Service Worker at the exact second of adzan.
 - Widened prayer safety net tolerance window from 90 seconds to 15 minutes (`PRAYER_ALERT_WINDOW_SECONDS = 900`) with strict duplicate suppression (`lastReminded`), eliminating alarm drops caused by Chrome alarm jitter, background throttling, or laptop lid sleep.
 - Top-level alarm registration in Service Worker ensuring alarms are consistently active across browser reloads, profile switches, and worker wakeups.
