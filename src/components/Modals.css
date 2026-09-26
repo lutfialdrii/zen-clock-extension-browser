@@ -505,3 +505,42 @@ input:checked + .slider:before {
   box-shadow: 0 4px 12px rgba(251, 191, 36, 0.5);
   filter: brightness(1.05);
 }
+
+.test-alert-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.test-alert-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--zen-accent, #fbbf24);
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.test-alert-btn:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: var(--zen-accent, #fbbf24);
+  transform: translateY(-1px);
+}
+
+.test-alert-hint {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.35;
+}

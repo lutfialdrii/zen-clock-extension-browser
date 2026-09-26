@@ -5,9 +5,15 @@ All notable changes to the "Zen Clock: Pomodoro & Muslim Prayer Times" browser e
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.1] - 2026-09-25
+## [0.0.1] - 2026-09-26
 
 ### Fixed & Hardened
+- Exact timestamp alarm scheduling for each daily prayer time (`ZEN_PRAYER_EXACT_${key}`) using `{ when: timestamp }`, waking the Service Worker at the exact second of adzan.
+- Widened prayer safety net tolerance window from 90 seconds to 15 minutes (`PRAYER_ALERT_WINDOW_SECONDS = 900`) with strict duplicate suppression (`lastReminded`), eliminating alarm drops caused by Chrome alarm jitter, background throttling, or laptop lid sleep.
+- Top-level alarm registration in Service Worker ensuring alarms are consistently active across browser reloads, profile switches, and worker wakeups.
+- Safe fallback window creation (`chrome.windows.create`) when opening reminder tab if no browser windows are currently active.
+- Added instant test trigger button ("Uji Notifikasi & Tab Pengingat") in Settings Modal to easily diagnose OS notification permissions and tab opening.
+- Automatic prayer check dispatch (`CHECK_PRAYER_NOW`) upon opening popup window.
 - Automatic routing to active Pomodoro tab on popup open and fullscreen Desk Clock mount when a session is running (`isRunning === true`).
 - Animated pulsing active dot indicator (`.pomodoro-active-dot`) on Pomodoro navigation buttons across popup and fullscreen views.
 - Fullscreen Desk Clock mode (`DeskClockPage.jsx`) now features dual view navigation (`FlipClock` & `PomodoroTimer`) with responsive clamp scaling and bidirectional background sync.

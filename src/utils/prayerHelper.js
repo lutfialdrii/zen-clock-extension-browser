@@ -203,3 +203,45 @@ export function formatCountdownDigits(totalSeconds) {
   const seconds = String(totalSeconds % 60).padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;
 }
+
+/**
+ * Default tolerance window for prayer alerts (15 minutes in seconds).
+ * Ensures background alarm batching or brief computer sleep doesn't miss the adzan.
+ */
+export const PRAYER_ALERT_WINDOW_SECONDS = 15 * 60;
+
+/**
+ * Pure evaluation function to determine if prayer alert should fire
+ */
+export function shouldTriggerPrayerAlert(
+  now,
+  prayerDate,
+  lastRemindedId,
+  reminderId,
+  maxWindowSecs = PRAYER_ALERT_WINDOW_SECONDS
+) {
+  if (!prayerDate || !(prayerDate instanceof Date) || isNaN(prayerDate.getTime())) return false;
+  if (lastRemindedId === reminderId) return false;
+
+  const diffSecs = Math.floor((now.getTime() - prayerDate.getTime()) / 1000);
+  return diffSecs >= 0 && diffSecs <= maxWindowSecs;
+}
+
+/**
+ * Returns list of upcoming fardh prayers today that should have exact alarms scheduled
+ */
+export function getUpcomingPrayerAlarms(allPrayers, now = new Date()) {
+  if (!Array.isArray(allPrayers)) return [];
+  const nowMs = now.getTime();
+
+  return allPrayers
+    .filter((p) => p.key !== 'sunrise' && p.date && p.date.getTime() > nowMs)
+    .map((p) => ({
+      key: p.key,
+      name: p.name,
+      time: p.time,
+      alarmName: `ZEN_PRAYER_EXACT_${p.key}`,
+      timestamp: p.date.getTime(),
+    }));
+}
+

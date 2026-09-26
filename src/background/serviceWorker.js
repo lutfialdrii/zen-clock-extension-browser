@@ -3,7 +3,13 @@
  * Manages Pomodoro Timer alarms, Kemenag RI prayer time checks, toolbar badges, and desktop notifications.
  */
 
-import { calculatePrayerTimes, getPrayerName } from '../utils/prayerHelper.js';
+import {
+  calculatePrayerTimes,
+  getPrayerName,
+  shouldTriggerPrayerAlert,
+  getUpcomingPrayerAlarms,
+  PRAYER_ALERT_WINDOW_SECONDS,
+} from '../utils/prayerHelper.js';
 import {
   getSettings,
   saveSettings,
@@ -18,6 +24,7 @@ import { getTranslations } from '../utils/i18n.js';
 
 const ALARMS = {
   PRAYER_CHECK: 'ZEN_PRAYER_CHECK',
+  PRAYER_DAILY_ROLLOVER: 'ZEN_PRAYER_DAILY_ROLLOVER',
   POMODORO_FINISH: 'ZEN_POMODORO_FINISH',
   POMODORO_TICK: 'ZEN_POMODORO_TICK',
 };
@@ -31,15 +38,21 @@ chrome.runtime.onInstalled.addListener(async () => {
   console.log('[Zen Clock Service Worker] Installed.');
   await ensureDefaults();
   setupAlarms();
+  await schedulePrayerAlarms();
   await checkPrayerTimes();
 });
 
 chrome.runtime.onStartup.addListener(async () => {
   console.log('[Zen Clock Service Worker] Browser startup.');
   setupAlarms();
+  await schedulePrayerAlarms();
   await resumePomodoroIfRunning();
   await checkPrayerTimes();
 });
+
+// Ensure alarms are initialized whenever service worker starts
+setupAlarms();
+schedulePrayerAlarms();
 
 async function ensureDefaults() {
   const settings = await getSettings();
@@ -53,17 +66,86 @@ function setupAlarms() {
 }
 
 /**
+ * Schedules exact timestamp alarms for each upcoming prayer time today
+ */
+async function schedulePrayerAlarms() {
+  try {
+    const settings = await getSettings();
+    if (!settings.notifyPrayer && !settings.autoOpenReminderTab) {
+      return;
+    }
+
+    const city = settings.city || DEFAULT_SETTINGS.city;
+    const adjustments = settings.adjustments || DEFAULT_SETTINGS.adjustments;
+    const lang = settings.language || 'id';
+
+    const now = new Date();
+    const result = calculatePrayerTimes(city, now, adjustments, lang);
+    if (!result || !result.allPrayers) return;
+
+    // 1. Get upcoming prayer alarms for today
+    const upcoming = getUpcomingPrayerAlarms(result.allPrayers, now);
+
+    // 2. Clear previous exact prayer alarms to avoid ghost alarms
+    const allAlarms = await chrome.alarms.getAll();
+    for (const a of allAlarms) {
+      if (a.name.startsWith('ZEN_PRAYER_EXACT_')) {
+        await chrome.alarms.clear(a.name);
+      }
+    }
+
+    // 3. Register exact alarm for each upcoming prayer
+    for (const item of upcoming) {
+      chrome.alarms.create(item.alarmName, { when: item.timestamp });
+    }
+
+    // 4. Register midnight rollover alarm (00:01 AM tomorrow) to schedule next day's prayers
+    const tomorrowMidnight = new Date(now);
+    tomorrowMidnight.setDate(tomorrowMidnight.getDate() + 1);
+    tomorrowMidnight.setHours(0, 1, 0, 0);
+    chrome.alarms.create(ALARMS.PRAYER_DAILY_ROLLOVER, { when: tomorrowMidnight.getTime() });
+  } catch (err) {
+    console.error('[Zen Clock] Failed to schedule prayer alarms:', err);
+  }
+}
+
+/**
  * Handle alarm triggers
  */
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === ALARMS.PRAYER_CHECK) {
     await checkPrayerTimes();
+  } else if (alarm.name.startsWith('ZEN_PRAYER_EXACT_')) {
+    const prayerKey = alarm.name.replace('ZEN_PRAYER_EXACT_', '');
+    await handleExactPrayerAlarm(prayerKey);
+  } else if (alarm.name === ALARMS.PRAYER_DAILY_ROLLOVER) {
+    await schedulePrayerAlarms();
   } else if (alarm.name === ALARMS.POMODORO_FINISH) {
     await handlePomodoroFinished();
   } else if (alarm.name === ALARMS.POMODORO_TICK) {
     await handlePomodoroTickAlarm();
   }
 });
+
+/**
+ * Handles exact timestamp alarm for a specific prayer
+ */
+async function handleExactPrayerAlarm(prayerKey) {
+  try {
+    const settings = await getSettings();
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const reminderId = `${prayerKey}-${todayStr}`;
+    const lastReminded = await getLastRemindedPrayer();
+
+    if (lastReminded !== reminderId) {
+      await setLastRemindedPrayer(reminderId);
+      await triggerPrayerAlert(prayerKey, now, settings);
+    }
+  } catch (err) {
+    console.error('[Zen Clock] Error handling exact prayer alarm:', err);
+  }
+}
 
 /**
  * Handles periodic minute alarm for Pomodoro when background worker sleeps
@@ -90,7 +172,7 @@ async function handlePomodoroTickAlarm() {
 }
 
 /**
- * Checks prayer times against current time (accurate to 1-minute window)
+ * Checks prayer times against current time (safety net for missed alarms or computer waking up)
  */
 async function checkPrayerTimes() {
   try {
@@ -117,17 +199,12 @@ async function checkPrayerTimes() {
       const prayerDate = prayer.date;
       if (!prayerDate) continue;
 
-      // Difference in seconds
-      const diffSecs = Math.floor((now.getTime() - prayerDate.getTime()) / 1000);
-
-      // Check if we are within a 90s window after adzan starts
-      if (diffSecs >= 0 && diffSecs <= 90) {
-        const reminderId = `${prayer.key}-${todayStr}`;
-        if (lastReminded !== reminderId) {
-          await setLastRemindedPrayer(reminderId);
-          await triggerPrayerAlert(prayer.key, prayerDate, settings);
-          break;
-        }
+      const reminderId = `${prayer.key}-${todayStr}`;
+      // Use 15-minute window tolerance to catch delayed wakeups while avoiding duplicates
+      if (shouldTriggerPrayerAlert(now, prayerDate, lastReminded, reminderId)) {
+        await setLastRemindedPrayer(reminderId);
+        await triggerPrayerAlert(prayer.key, prayerDate, settings);
+        break;
       }
     }
   } catch (error) {
@@ -138,36 +215,54 @@ async function checkPrayerTimes() {
 /**
  * Triggers prayer alerts: opens reminder tab (if configured) and OS notification
  */
-async function triggerPrayerAlert(prayerKey, prayerDate, settings) {
+async function triggerPrayerAlert(prayerKey, prayerDate, settings, isTest = false) {
   const lang = settings.language || 'id';
   const t = getTranslations(lang);
   const prayerName = getPrayerName(prayerKey, lang, prayerDate);
   const cityName = settings.city?.name || 'Jakarta';
 
   // 1. Parameterized: Auto open reminder.html tab (default: true)
-  if (settings.autoOpenReminderTab !== false) {
+  if (settings.autoOpenReminderTab !== false || isTest) {
     const reminderUrl = chrome.runtime.getURL(`reminder.html?prayer=${prayerKey}&city=${encodeURIComponent(cityName)}`);
-    chrome.tabs.create({ url: reminderUrl, active: true });
+    try {
+      chrome.tabs.create({ url: reminderUrl, active: true }, (tab) => {
+        if (chrome.runtime.lastError) {
+          console.warn('[Zen Clock] tabs.create fallback to windows.create:', chrome.runtime.lastError);
+          chrome.windows.create({ url: reminderUrl, focused: true });
+        }
+      });
+    } catch (err) {
+      console.warn('[Zen Clock] Tab opening error:', err);
+    }
   }
 
   // 2. Desktop notification
-  if (settings.notifyPrayer !== false) {
-    const title = t.notifications.prayerArrived.replace('{name}', prayerName);
+  if (settings.notifyPrayer !== false || isTest) {
+    const prefix = isTest ? '[TEST] ' : '';
+    const title = prefix + t.notifications.prayerArrived.replace('{name}', prayerName);
     const message = lang === 'en'
       ? `Time for ${prayerName} has arrived in ${cityName}.`
       : `Waktu sholat ${prayerName} untuk wilayah ${cityName} dan sekitarnya telah tiba.`;
 
-    chrome.notifications.create(`zen_prayer_${prayerKey}_${Date.now()}`, {
-      type: 'basic',
-      iconUrl: chrome.runtime.getURL('public/icons/icon-128.png'),
-      title,
-      message,
-      priority: 2,
-      requireInteraction: true,
-      buttons: [
-        { title: t.notifications.openReminder || 'Buka Pengingat' },
-      ],
-    });
+    try {
+      chrome.notifications.create(`zen_prayer_${prayerKey}_${Date.now()}`, {
+        type: 'basic',
+        iconUrl: chrome.runtime.getURL('public/icons/icon-128.png'),
+        title,
+        message,
+        priority: 2,
+        requireInteraction: true,
+        buttons: [
+          { title: t.notifications.openReminder || 'Buka Pengingat' },
+        ],
+      }, (id) => {
+        if (chrome.runtime.lastError) {
+          console.warn('[Zen Clock] notifications.create error (check OS notification permissions):', chrome.runtime.lastError);
+        }
+      });
+    } catch (err) {
+      console.warn('[Zen Clock] Notification creation error:', err);
+    }
   }
 }
 
@@ -314,7 +409,8 @@ if (chrome.storage && chrome.storage.onChanged) {
   chrome.storage.onChanged.addListener(async (changes, area) => {
     if (area === 'local') {
       if (changes.zen_settings) {
-        console.log('[Zen Clock Service Worker] Settings updated via storage event, rechecking prayer times.');
+        console.log('[Zen Clock Service Worker] Settings updated via storage event, rescheduling alarms & rechecking.');
+        await schedulePrayerAlarms();
         await checkPrayerTimes();
 
         const newSettings = changes.zen_settings.newValue;
@@ -439,6 +535,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
       case 'CHECK_PRAYER_NOW': {
         await checkPrayerTimes();
+        sendResponse({ success: true });
+        break;
+      }
+
+      case 'TEST_PRAYER_ALERT': {
+        const settings = await getSettings();
+        await triggerPrayerAlert(request.prayerKey || 'dhuhr', new Date(), settings, true);
         sendResponse({ success: true });
         break;
       }

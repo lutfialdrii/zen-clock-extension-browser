@@ -32,8 +32,18 @@ export default function SettingsModal({
   });
 
   const [customHex, setCustomHex] = useState('');
+  const [testStatus, setTestStatus] = useState('');
 
   if (!isOpen) return null;
+
+  const handleTestPrayerAlert = () => {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      chrome.runtime.sendMessage({ type: 'TEST_PRAYER_ALERT', prayerKey: 'dhuhr' }, () => {
+        setTestStatus(language === 'en' ? 'Alert Sent!' : 'Pengingat Terkirim!');
+        setTimeout(() => setTestStatus(''), 3000);
+      });
+    }
+  };
 
   const handleApplyCustomHex = () => {
     if (/^#([0-9A-F]{3}){1,2}$/i.test(customHex)) {
@@ -176,6 +186,22 @@ export default function SettingsModal({
                 />
                 <span className="slider"></span>
               </label>
+            </div>
+
+            <div className="test-alert-row">
+              <button
+                type="button"
+                className="test-alert-btn"
+                onClick={handleTestPrayerAlert}
+              >
+                <Bell size={13} />
+                <span>{testStatus || (language === 'en' ? 'Test Prayer Alert & Tab' : 'Uji Notifikasi & Tab Pengingat')}</span>
+              </button>
+              <span className="test-alert-hint">
+                {language === 'en'
+                  ? 'Triggers a simulated alert to test tab opening & system notifications.'
+                  : 'Memicu pengingat uji coba untuk memastikan pembukaan tab dan notifikasi OS berfungsi.'}
+              </span>
             </div>
           </div>
 

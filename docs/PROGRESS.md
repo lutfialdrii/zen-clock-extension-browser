@@ -18,6 +18,8 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7: Packaging Zip & Rilis v0.0.1** | Skrip packager otomatis, README & CHANGELOG rilis awal, panduan upload Web Store & Edge Add-ons | `main` | ✅ Selesai |
 | **M7.1: Pre-Release Hardening** | Persistensi disk LevelDB, storage reactive listener, anti multi-state Pomodoro guard & SSOT | `fix/pomodoro-state-and-storage` | ✅ Selesai |
 | **M7.2: Pomodoro Fullscreen & Routing** | Mode Pomodoro di Desk Clock, auto-routing tab saat sesi aktif, pulsing dot indicator | `fix/pomodoro-fullscreen-and-routing` | ✅ Selesai |
+| **M7.3: Prayer Alarms & Reminder Reliability** | Exact timestamp alarm scheduling, toleransi 15m safety net, fallback window, tombol test | `fix/prayer-alarm-scheduler-and-reminder` | ✅ Selesai |
+
 
 
 ---
@@ -114,4 +116,16 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Tambahkan dot icon beranimasi pulsing (`.pomodoro-active-dot`) saat Pomodoro aktif di tampilan Popup maupun Fullscreen Desk Clock.
 - [x] Buat unit test `tests/pomodoroRouting.test.js` (17/17 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.3: Prayer Alarms & Reminder Reliability ✅
+- [x] Implementasikan penjadwalan alarm waktu tepat (`schedulePrayerAlarms`) dengan `chrome.alarms.create(alarmName, { when: timestamp })` untuk tiap sholat fardhu hari ini.
+- [x] Perluas jendela toleransi safety net (`PRAYER_ALERT_WINDOW_SECONDS = 900`, 15 menit) dengan proteksi anti duplikasi harian (`lastReminded`), mencegah alarm terlewat akibat throttling latar belakang atau laptop tidur sejenak.
+- [x] Daftarkan inisialisasi alarm di top-level Service Worker untuk menjamin alarm tetap terpasang di semua siklus hidup Service Worker.
+- [x] Tambahkan fallback pembukaan jendela peramban (`chrome.windows.create`) jika `chrome.tabs.create` gagal saat tidak ada jendela aktif.
+- [x] Tambahkan tombol diagnostik uji coba pengingat ("Uji Notifikasi & Tab Pengingat") di `SettingsModal.jsx` untuk verifikasi instan pembukaan tab dan notifikasi OS.
+- [x] Buat unit test `tests/prayerAlarmScheduler.test.js` (22/22 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
 
