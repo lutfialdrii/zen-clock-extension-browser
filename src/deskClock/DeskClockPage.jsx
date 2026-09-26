@@ -197,6 +197,14 @@ export default function DeskClockPage() {
         onClose={() => setIsSettingsOpen(false)}
         settings={settings}
         onSaveSettings={handleUpdateSettings}
+        onOpenCityPicker={() => {
+          setIsSettingsOpen(false);
+          setIsCityPickerOpen(true);
+        }}
+        onOpenAdjustModal={() => {
+          setIsSettingsOpen(false);
+          setIsAdjustOpen(true);
+        }}
       />
     </div>
   );

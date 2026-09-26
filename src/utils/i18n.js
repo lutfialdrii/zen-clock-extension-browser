@@ -55,6 +55,11 @@ export const translations = {
       searchingOnline: 'Mencari lokasi online...',
       noCitiesFound: 'Kota tidak ditemukan di katalog lokal',
       globalResults: 'Hasil Pencarian Global (OSM)',
+      locationAndPrayer: 'Lokasi & Jadwal Sholat',
+      adjustPrayerTimes: 'Sesuaikan Jam Sholat',
+      adjustPrayerTimesDesc: 'Koreksi menit untuk tiap waktu sholat (Ihtiyat)',
+      change: 'Ubah',
+      adjust: 'Atur',
     },
     notifications: {
       prayerArrived: '🕌 Waktu Sholat {name} telah tiba!',
@@ -124,6 +129,11 @@ export const translations = {
       searchingOnline: 'Searching online location...',
       noCitiesFound: 'City not found in local catalog',
       globalResults: 'Global Search Results (OSM)',
+      locationAndPrayer: 'Location & Prayer Schedule',
+      adjustPrayerTimes: 'Adjust Prayer Times',
+      adjustPrayerTimesDesc: 'Fine-tune minute offsets for each prayer',
+      change: 'Change',
+      adjust: 'Adjust',
     },
     notifications: {
       prayerArrived: '🕌 Prayer Time for {name} has arrived!',

@@ -20,6 +20,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.2: Pomodoro Fullscreen & Routing** | Mode Pomodoro di Desk Clock, auto-routing tab saat sesi aktif, pulsing dot indicator | `fix/pomodoro-fullscreen-and-routing` | ✅ Selesai |
 | **M7.3: Prayer Alarms & Reminder Reliability** | Exact timestamp alarm scheduling, toleransi 15m safety net, fallback window, tombol test | `fix/prayer-alarm-scheduler-and-reminder` | ✅ Selesai |
 | **M7.4: Full City Catalog, Global Search & GPS** | 500+ kota/kabupaten se-Indonesia (38 provinsi), pencarian global OSM Nominatim, GPS otomatis, timezone-aware | `feat/full-city-catalog-and-global-search` | ✅ Selesai |
+| **M7.5: Settings Panel City & Adjust Navigation** | Integrasi navigasi pemilihan kota dan koreksi jam sholat langsung di panel Setting | `feat/settings-panel-city-and-adjust` | ✅ Selesai |
 
 
 
@@ -140,6 +141,18 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Tambahkan kamus terjemahan bilingual (`useGps`, `detectingGps`, `gpsDenied`, `searchWorldwide`, `searchingOnline`, `globalResults`).
 - [x] Buat unit test `tests/citiesData.test.js` (26/26 tests passing).
 - [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
+---
+
+### Milestone 7.5: Settings Panel City & Adjust Navigation ✅
+- [x] Tambahkan bagian "Lokasi & Jadwal Sholat" di posisi teratas panel Pengaturan (`SettingsModal.jsx`), memuat baris interaktif kota terpilih lengkap dengan badge zona waktu dan deskripsi wilayah.
+- [x] Tambahkan baris interaktif "Sesuaikan Jam Sholat" (Ihtiyat) di panel Pengaturan dengan indikator status penyesuaian kustom.
+- [x] Sambungkan event handler `onOpenCityPicker` dan `onOpenAdjustModal` baik pada popup utama (`App.jsx`) maupun fullscreen desk clock (`DeskClockPage.jsx`), menyimpan pengaturan aktif sebelum membuka modal tujuan.
+- [x] Tambahkan styling `.settings-action-row` di `Modals.css` dengan micro-interactions responsif (hover highlight, chevron slide, badge status).
+- [x] Tambahkan kamus terjemahan dwibahasa di `src/utils/i18n.js` (`locationAndPrayer`, `adjustPrayerTimes`, `adjustPrayerTimesDesc`, `change`, `adjust`).
+- [x] Buat unit test `tests/settingsNavigation.test.js` (28/28 tests passing).
+- [x] Verifikasi penuh: `npm test && npm run package:zip`.
+
 
 
 
