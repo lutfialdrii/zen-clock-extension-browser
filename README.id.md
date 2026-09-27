@@ -1,7 +1,7 @@
 # ⏰ Zen Clock: Pomodoro & Jadwal Sholat (Ekstensi Browser)
 
 <p align="center">
-  <img src="./assets/preview-fullview.png" alt="Zen Clock: Pomodoro & Jadwal Sholat" width="100%" />
+  <img src="./assets/preview-extension.png" alt="Zen Clock: Pomodoro & Jadwal Sholat" width="100%" />
 </p>
 
 <p align="center">
@@ -55,6 +55,28 @@
 ### 📍 6. Pemilih Kota & Smart Geolocation
 - Pilihan kota populer di Indonesia (Jakarta, Bandung, Surabaya, Medan, dll.) dan pencarian kota global.
 - Fallback deteksi lokasi otomatis via IP.
+
+---
+
+## 📸 Galeri Antarmuka
+
+### 1. Tampilan Action Popup & Jam Meja Layar Penuh
+| 📌 Action Popup (380px) | 📑 Tab Layar Penuh (Desk Clock) |
+| :---: | :---: |
+| <img src="./assets/preview-extension.png" alt="Zen Clock Action Popup" width="100%" /> | <img src="./assets/preview-extension-full.png" alt="Zen Clock Full Desk Clock View" width="100%" /> |
+| *Widget mengambang praktis langsung dari toolbar browser.* | *Jam mekanik flip imersif untuk layar meja kerja Anda.* |
+
+### 2. Timer Pomodoro & Kustomisasi Tema
+| 🍅 Mesin Timer Pomodoro 2-Kartu | 🎨 Preset Pilihan Warna Tema |
+| :---: | :---: |
+| <img src="./assets/preview-pomodoro.png" alt="Pomodoro Timer" width="100%" /> | <img src="./assets/preview-theme.png" alt="Kustomisasi Tema" width="100%" /> |
+| *Timer flip 2-kartu tersinkronisasi dengan background service worker.* | *Palet warna pilihan + input kustom kode warna HEX.* |
+
+### 3. Tab Pengingat Sholat Khusyuk
+| 🕌 Tab Pengingat Waktu Sholat Otomatis |
+| :---: |
+| <img src="./assets/preview-prayer-reminder.png" alt="Zen Prayer Reminder Tab" width="100%" /> |
+| *Tab menenangkan yang terbuka otomatis saat adzan tiba dengan waktu lokal dan ayat Al-Qur'an.* |
 
 ---
 

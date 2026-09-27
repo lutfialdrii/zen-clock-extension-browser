@@ -1,7 +1,7 @@
 # ⏰ Zen Clock: Pomodoro & Muslim Prayer Times (Browser Extension)
 
 <p align="center">
-  <img src="./assets/preview-fullview.png" alt="Zen Clock: Pomodoro & Muslim Prayer Times" width="100%" />
+  <img src="./assets/preview-extension.png" alt="Zen Clock: Pomodoro & Muslim Prayer Times" width="100%" />
 </p>
 
 <p align="center">
@@ -63,7 +63,7 @@
 ### 1. Action Popup & Desk Clock View
 | 📌 Action Popup (380px) | 📑 Fullscreen Desk Clock Tab |
 | :---: | :---: |
-| <img src="./assets/preview-sidebar.png" alt="Zen Clock Action Popup" width="100%" /> | <img src="./assets/preview-fullview.png" alt="Zen Clock Full Desk Clock View" width="100%" /> |
+| <img src="./assets/preview-extension.png" alt="Zen Clock Action Popup" width="100%" /> | <img src="./assets/preview-extension-full.png" alt="Zen Clock Full Desk Clock View" width="100%" /> |
 | *Compact floating widget from your browser toolbar.* | *Immersive mechanical flip clock for dedicated desk display.* |
 
 ### 2. Pomodoro Timer & Theme Customization
