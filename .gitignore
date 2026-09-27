@@ -38,4 +38,9 @@ releases/
 docs/BRANCHING_STRATEGY.md
 docs/DEV_LOG.md
 docs/NOTES.md
+docs/CHROME_STORE_UPLOAD_GUIDE.md
+
+# Store submission assets (local scratch)
+store-assets/
+
 
