@@ -117,6 +117,20 @@ npm run package:zip
 ```
 This builds and packages the extension into `releases/extension-browser-zen-clock-0.0.1.zip`, ready for submission to the **Chrome Web Store Developer Dashboard** and **Microsoft Partner Center (Edge Add-ons)**.
 
+For complete developer dashboard submission metadata, category selection, and permissions justification text, see our [Chrome Web Store Submission Guide](./CHROMEWEBSTORE.md).
+
+---
+
+## 🔒 Privacy, Security & Offline-First Pledge
+
+Zen Clock is built with privacy-by-design at its core:
+- **Zero Data Collection**: No personally identifiable information (PII) is collected, stored remotely, or transmitted.
+- **Client-Side Astronomy**: Astronomical prayer times are computed mathematically directly on your device via the official Kemenag RI formula.
+- **Zero Trackers & Zero Ads**: No Google Analytics, telemetry, cookies, or remote tracking scripts.
+- **Minimalist Permissions**: Only 3 standard permissions declared (`storage`, `alarms`, `notifications`), with **zero** host permissions.
+
+For full details, read our complete [Privacy Policy](./PRIVACY.md).
+
 ---
 
 ## 💖 Support the Creator

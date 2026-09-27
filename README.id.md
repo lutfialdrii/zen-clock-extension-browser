@@ -88,6 +88,20 @@ npm run package:zip
 ```
 Perintah ini akan mengompilasi dan mengompres folder `dist/` ke dalam berkas arsip `releases/extension-browser-zen-clock-0.0.1.zip` yang siap diunggah ke **Chrome Web Store** dan **Microsoft Edge Add-ons**.
 
+Untuk panduan lengkap pendaftaran, pemilihan kategori, dan teks justifikasi izin untuk formulir Chrome Developer Dashboard, silakan baca [Panduan Rilis Chrome Web Store](./CHROMEWEBSTORE.md).
+
+---
+
+## 🔒 Privasi, Keamanan & Komitmen Offline-First
+
+Zen Clock dirancang dengan mengutamakan privasi pengguna sejak awal:
+- **Tanpa Pengumpulan Data**: Tidak ada data pribadi (PII) yang dikumpulkan, disimpan di server eksternal, atau dipindahtangankan.
+- **Kalkulasi Astronomi Lokal**: Perhitungan jadwal sholat dilakukan secara matematis langsung di perangkat Anda mengikuti standar resmi Kemenag RI.
+- **Bebas Pelacak & Iklan**: Bebas Google Analytics, telemetri, cookies pelacak, maupun skrip iklan pihak ketiga.
+- **Izin Minimalis**: Hanya menggunakan 3 izin dasar (`storage`, `alarms`, `notifications`), dengan **nol** izin akses tab/situs (`host_permissions`).
+
+Pelajari selengkapnya di [Kebijakan Privasi](./PRIVACY.md).
+
 ---
 
 ## 💖 Dukung Pengembang

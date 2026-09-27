@@ -78,6 +78,10 @@ In the **Privacy** tab of the Chrome Developer Dashboard, declare the following:
 
 - **Single Purpose Compliance:** Confirmed.
 - **Permission Justification:** Provided as detailed above.
+- **Privacy Policy URL (Copy to Dashboard):**
+  ```text
+  https://github.com/lutfialdrii/zen-clock-extension-browser/blob/main/PRIVACY.md
+  ```
 - **Does this extension collect or transmit user data?** Select **NO**.
   - No personally identifiable information (PII).
   - No health, financial, authentication, or browsing history data.
