@@ -2,7 +2,7 @@
   "name": "extension-browser-zen-clock",
   "displayName": "Zen Clock: Pomodoro & Muslim Prayer Times",
   "description": "A mindful 3D retro mechanical flip clock, background Pomodoro timer, and automated Muslim prayer times with Kemenag RI standards for Google Chrome & Microsoft Edge.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "author": "lutfialdrii",
   "license": "MIT",

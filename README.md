@@ -115,7 +115,7 @@ Make changes to components or styles in `src/`, and the extension in Chrome/Edge
 ```bash
 npm run package:zip
 ```
-This builds and packages the extension into `releases/extension-browser-zen-clock-0.0.1.zip`, ready for submission to the **Chrome Web Store Developer Dashboard** and **Microsoft Partner Center (Edge Add-ons)**.
+This builds and packages the extension into `releases/extension-browser-zen-clock-1.0.0.zip`, ready for submission to the **Chrome Web Store Developer Dashboard** and **Microsoft Partner Center (Edge Add-ons)**.
 
 For complete developer dashboard submission metadata, category selection, and permissions justification text, see our [Chrome Web Store Submission Guide](./CHROMEWEBSTORE.md).
 

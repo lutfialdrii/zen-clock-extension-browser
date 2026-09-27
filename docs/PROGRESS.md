@@ -25,6 +25,7 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 | **M7.7: Support Creator & Project Backing** | Widget apresiasi pengembang di Settings (Saweria & Star GitHub), modular config, dan dokumentasi README | `feat/support-creator-widget` | ✅ Selesai |
 | **M7.8: Chrome Web Store Pre-Submission Readiness** | Validasi batas deskripsi (130 char <= 132), normalisasi icon path, perbaikan memory leak, CHROMEWEBSTORE.md | `fix/cws-pre-submission-readiness` | ✅ Selesai |
 | **M7.9: Reminder Tab URL & ERR_FILE_NOT_FOUND Fix** | Pemisahan path file base dari query params pada `chrome.runtime.getURL`, helper `buildReminderUrl`, dan parsing hash | `fix/reminder-tab-url-not-found` | ✅ Selesai |
+| **M8: Final Production Release v1.0.0** | Bump versi ke 1.0.0, pembaruan CHANGELOG & dokumentasi, panduan GitHub Release & Tagging, paket rilis final siap store | `main` | ✅ Selesai |
 
 
 
@@ -200,7 +201,12 @@ Dokumen ini memantau milestone, status implementasi fitur, dan roadmap ekstensi 
 - [x] Buat unit test `buildReminderUrl` di `tests/prayerHelper.test.js` (33/33 tests passing).
 - [x] Lakukan kompilasi dan pemaketan rilis: `npm test && npm run package:zip` (127.19 KB).
 
+---
 
-
-
+### Milestone 8: Final Production Release v1.0.0 ✅
+- [x] Naikkan versi proyek ke `1.0.0` pada `package.json`, `manifest.json`, dan `package-lock.json`.
+- [x] Perbarui seluruh referensi paket distribusi menjadi `extension-browser-zen-clock-1.0.0.zip` pada `README.md`, `README.id.md`, `CHROMEWEBSTORE.md`, dan `docs/CHROME_STORE_UPLOAD_GUIDE.md`.
+- [x] Susun entri rilis resmi `[1.0.0] - 2026-09-27` di `CHANGELOG.md` secara terpusat untuk GitHub Release notes.
+- [x] Buat panduan komprehensif pembuatan Git Tag dan GitHub Release `docs/GITHUB_RELEASE_GUIDE.md`.
+- [x] Verifikasi akhir: `npm test` (33/33 tests passing) & `npm run package:zip` (127.19 KB).
 

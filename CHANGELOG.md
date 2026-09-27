@@ -5,6 +5,39 @@ All notable changes to the "Zen Clock: Pomodoro & Muslim Prayer Times" browser e
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-09-27
+
+> First major official production release of **Zen Clock: Pomodoro & Muslim Prayer Times** for Google Chrome and Microsoft Edge.
+
+### 🌟 Key Highlights & Features
+- **3D Retro Mechanical Flip Clock**: Minimalist, distraction-free flip clock with smooth CSS 3D folding animations and localized date display.
+- **Dedicated Fullscreen Desk Clock Mode (`clock.html`)**: Ambient aesthetic clock display featuring dual view navigation (`FlipClock` & `PomodoroTimer`) with responsive clamp scaling.
+- **Persistent Background Pomodoro Engine**: Directly powered by Manifest V3 Background Service Worker and `chrome.alarms`, ensuring timers keep ticking accurately even when the popup is closed or the browser sleeps.
+- **Live Extension Toolbar Badge**: Real-time minute countdown with status-based theme coloring (`Amber` for focus work, `Emerald` for break).
+- **Single Source of Truth (SSOT) Architecture**: Pomodoro remaining seconds derived purely from `targetEndTime`, preventing UI desynchronization across views.
+- **Automated Muslim Prayer Times (Kemenag RI Standard)**:
+  - Accurate astronomical calculation via `adhan` library following official Indonesian Ministry of Religious Affairs standards (Fajr 20°, Isha 18°, Shafi'i Madhab, rounding up).
+  - Safety buffer *ihtiyat* +2 minutes applied across all fardh prayer times (-2 minutes for Sunrise).
+  - Friday Dhuhr is automatically displayed as **"Jum'at"** in both Indonesian and English.
+- **Comprehensive Catalog of 514 Indonesian Cities (38 Provinces)**: Full offline coverage across all 514 cities & regencies in Indonesia with official IANA timezones (WIB, WITA, WIT) plus major international cities.
+- **Worldwide Location Search & Instant Browser GPS**: Global search powered by OpenStreetMap Nominatim API and one-click zero-setup browser GPS detection with reverse geocoding fallback.
+- **Timezone-Aware Calculations**: Prayer schedules strictly reflect the selected city's local timezone (`Intl.DateTimeFormat`) regardless of the host machine's system clock.
+- **Live Prayer Adjustment Preview**: Fine-tune minute offsets (-15m to +15m) in the Adjust Modal with dynamic live time preview and 1-click Kemenag reset.
+- **Dedicated Peaceful Prayer Reminder Tab (`reminder.html`)**: Serene dark obsidian reminder tab featuring Quranic calligraphy (*QS. An-Nisa: 103*), parameterized automatic tab opening (`autoOpenReminderTab`), and ready-to-pray dismissal.
+- **6 Aesthetic Color Themes & Custom HEX**: Preset palettes (*Warm Amber*, *Islamic Emerald*, *Modern Sky Cyan*, *Pomodoro Rose*, *Mystic Purple*, *Monochrome Silver*) and custom HEX color picker with automatic contrast detection.
+- **Full Bilingual Support (i18n)**: Seamless language switching between Bahasa Indonesia and English.
+- **Support the Creator Widget**: Integrated voluntary Saweria donations (GoPay, OVO, Dana, QRIS) and GitHub star callouts in the Settings Panel.
+- **100% Offline-First & Privacy Pledge (`PRIVACY.md`)**: Zero data collection, zero analytics, zero ads, zero trackers, and only 3 minimal standard permissions (`storage`, `alarms`, `notifications`) with zero host permissions.
+
+### 🛡️ Hardening, Performance & Compliance
+- **Reminder Tab Navigation Fix (`ERR_FILE_NOT_FOUND`)**: Isolated physical file path from query strings via `buildReminderUrl` and added dual `searchParams` / `hashParams` parsing in `ReminderPage.jsx`.
+- **Chrome Web Store Compliance**: Shortened manifest description to 130 characters, strictly below the 132-character dashboard limit.
+- **Asset Normalization & Bundle Diet**: Normalized icon paths to `icons/`, eliminating duplicate asset bundles and reducing the release package to 127.19 KB.
+- **Memory Leak Elimination**: Captured and cleared interval timers during `FlipClock.jsx` unmount lifecycle.
+- **Storage Default Timezone**: Added fallback `timezone: 'Asia/Jakarta'` to `DEFAULT_SETTINGS.city` to prevent race conditions during fresh installations.
+- **Reliable Background Alarm Scheduling**: Exact timestamp alarms (`when: timestamp`) with 15-minute tolerance safety net and daily deduplication (`lastReminded`).
+- **Automated Distribution Packaging**: Automated packager script generating production zip at `releases/extension-browser-zen-clock-1.0.0.zip`.
+
 ## [0.0.1] - 2026-09-26
 
 ### Fixed & Hardened
