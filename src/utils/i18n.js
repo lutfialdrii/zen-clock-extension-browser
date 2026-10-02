@@ -77,8 +77,8 @@ export const translations = {
     },
     reminder: {
       title: 'Panggilan Sholat {name}',
-      readyToPray: '✓ Saya Siap Sholat',
-      openDeskClock: '⏱️ Buka Desk Clock',
+      readyToPray: 'Saya Siap Sholat',
+      openDeskClock: 'Buka Desk Clock',
       quranQuote: '“Maka dirikanlah shalat itu (sebagaimana biasa). Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.”',
       quranSurah: 'QS. An-Nisa\': 103',
       disclaimer: 'Halaman ini otomatis terbuka sesuai jadwal waktu sholat lokasi Anda.',
@@ -157,8 +157,8 @@ export const translations = {
     },
     reminder: {
       title: 'Call to Prayer: {name}',
-      readyToPray: '✓ I Am Ready to Pray',
-      openDeskClock: '⏱️ Open Desk Clock',
+      readyToPray: 'I Am Ready to Pray',
+      openDeskClock: 'Open Desk Clock',
       quranQuote: '“Indeed, prayer has been decreed upon the believers a decree of specified times.”',
       quranSurah: 'Surah An-Nisa: 103',
       disclaimer: 'This tab opens automatically according to your location prayer times.',
