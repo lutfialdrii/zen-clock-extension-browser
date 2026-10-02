@@ -117,5 +117,10 @@ test('buildReminderUrl - Properly formats URL with query params without embeddin
   // Handles missing city or base safely
   const url3 = buildReminderUrl('', 'fajr');
   assert.equal(url3, 'reminder.html?prayer=fajr');
+
+  // Includes prayer time parameter when provided
+  const url4 = buildReminderUrl(base, 'maghrib', 'Jakarta', '18:05');
+  assert.equal(url4, 'chrome-extension://dmnfclhpjfonamocklepmgcpldnohllf/reminder.html?prayer=maghrib&city=Jakarta&time=18%3A05');
 });
+
 
