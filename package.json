@@ -28,7 +28,8 @@
     "dev": "vite",
     "build": "vite build",
     "test": "node --test tests/*.test.js",
-    "package:zip": "npm run build && node scripts/package-zip.js"
+    "package:zip": "npm run build && node scripts/package-zip.js",
+    "release:github": "node scripts/publish-release.mjs"
   },
   "dependencies": {
     "adhan": "^4.4.3",
