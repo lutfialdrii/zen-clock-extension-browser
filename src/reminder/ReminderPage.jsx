@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Check, Clock, Compass } from 'lucide-react';
 import { getSettings } from '../utils/storage.js';
 import { getTranslations } from '../utils/i18n.js';
-import { getPrayerName } from '../utils/prayerHelper.js';
+import { getPrayerName, calculatePrayerTimes } from '../utils/prayerHelper.js';
 import './ReminderPage.css';
 
 export default function ReminderPage() {
@@ -13,6 +13,7 @@ export default function ReminderPage() {
   const hashParams = new URLSearchParams(window.location.hash.startsWith('#') ? window.location.hash.slice(1) : window.location.hash);
   const prayerParam = searchParams.get('prayer') || hashParams.get('prayer') || 'dhuhr';
   const cityParam = searchParams.get('city') || hashParams.get('city');
+  const timeParam = searchParams.get('time') || hashParams.get('time');
 
   useEffect(() => {
     getSettings().then((s) => {
@@ -22,7 +23,7 @@ export default function ReminderPage() {
       }
     });
 
-    const timer = setInterval(() => setNow(new Date()), 1000);
+    const timer = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(timer);
   }, []);
 
@@ -31,6 +32,26 @@ export default function ReminderPage() {
   const cityName = cityParam || settings?.city?.name || 'Jakarta';
   const prayerDisplayName = getPrayerName(prayerParam, language, now);
 
+  // Determine scheduled prayer time (from URL parameter or dynamic calculation from user settings)
+  let prayerTimeDisplay = timeParam;
+  if (!prayerTimeDisplay && settings?.city) {
+    const prayerCalc = calculatePrayerTimes(
+      settings.city,
+      now,
+      settings?.adjustments,
+      language
+    );
+    const matched = prayerCalc?.allPrayers?.find(
+      (p) => p.key === prayerParam.toLowerCase()
+    );
+    if (matched) {
+      prayerTimeDisplay = matched.time;
+    }
+  }
+  if (!prayerTimeDisplay) {
+    prayerTimeDisplay = '--:--';
+  }
+
   const handleClose = () => {
     window.close();
   };
@@ -38,12 +59,6 @@ export default function ReminderPage() {
   const handleOpenDeskClock = () => {
     window.location.href = 'clock.html';
   };
-
-  const timeFormatted = now.toLocaleTimeString(language === 'en' ? 'en-US' : 'id-ID', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  });
 
   return (
     <div className="reminder-container">
@@ -55,7 +70,7 @@ export default function ReminderPage() {
         <div className="reminder-badge">
           <span>{cityName}</span>
           <span className="bullet">•</span>
-          <span>{timeFormatted}</span>
+          <span>{prayerTimeDisplay}</span>
         </div>
 
         <h1 className="reminder-title">
@@ -73,11 +88,11 @@ export default function ReminderPage() {
         <div className="reminder-actions">
           <button className="reminder-btn-primary" onClick={handleClose}>
             <Check size={18} />
-            <span>{t.reminder.readyToPray}</span>
+            <span>{t.reminder.readyToPray.replace(/^[✓✔]\s*/, '')}</span>
           </button>
           <button className="reminder-btn-secondary" onClick={handleOpenDeskClock}>
             <Clock size={16} />
-            <span>{t.reminder.openDeskClock}</span>
+            <span>{t.reminder.openDeskClock.replace(/^[⏱️]\s*/, '')}</span>
           </button>
         </div>
 
