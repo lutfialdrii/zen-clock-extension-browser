@@ -6,6 +6,7 @@
 import {
   calculatePrayerTimes,
   getPrayerName,
+  formatTimeHHMM,
   shouldTriggerPrayerAlert,
   getUpcomingPrayerAlarms,
   buildReminderUrl,
@@ -228,7 +229,8 @@ async function triggerPrayerAlert(prayerKey, prayerDate, settings, isTest = fals
   // 1. Parameterized: Auto open reminder.html tab (default: true)
   if (settings.autoOpenReminderTab !== false || isTest) {
     const baseReminderUrl = chrome.runtime.getURL('reminder.html');
-    const reminderUrl = buildReminderUrl(baseReminderUrl, prayerKey, cityName);
+    const timeStr = formatTimeHHMM(prayerDate, settings.city?.timezone);
+    const reminderUrl = buildReminderUrl(baseReminderUrl, prayerKey, cityName, timeStr);
     try {
       chrome.tabs.create({ url: reminderUrl, active: true }, (tab) => {
         if (chrome.runtime.lastError) {
@@ -395,22 +397,34 @@ async function handlePomodoroFinished() {
 /**
  * Handles user interaction on notifications
  */
-chrome.notifications.onButtonClicked.addListener((notificationId) => {
+async function openReminderFromNotification(notificationId) {
   if (notificationId.startsWith('zen_prayer_')) {
     const parts = notificationId.split('_');
     const prayerKey = parts[2] || 'dhuhr';
-    const reminderUrl = buildReminderUrl(chrome.runtime.getURL('reminder.html'), prayerKey);
-    chrome.tabs.create({ url: reminderUrl });
+    try {
+      const settings = await getSettings();
+      const prayerCalc = calculatePrayerTimes(settings.city, new Date(), settings.adjustments, settings.language);
+      const matched = prayerCalc?.allPrayers?.find((p) => p.key === prayerKey.toLowerCase());
+      const reminderUrl = buildReminderUrl(
+        chrome.runtime.getURL('reminder.html'),
+        prayerKey,
+        settings.city?.name,
+        matched?.time
+      );
+      chrome.tabs.create({ url: reminderUrl });
+    } catch (err) {
+      const fallbackUrl = buildReminderUrl(chrome.runtime.getURL('reminder.html'), prayerKey);
+      chrome.tabs.create({ url: fallbackUrl });
+    }
   }
+}
+
+chrome.notifications.onButtonClicked.addListener((notificationId) => {
+  openReminderFromNotification(notificationId);
 });
 
 chrome.notifications.onClicked.addListener((notificationId) => {
-  if (notificationId.startsWith('zen_prayer_')) {
-    const parts = notificationId.split('_');
-    const prayerKey = parts[2] || 'dhuhr';
-    const reminderUrl = buildReminderUrl(chrome.runtime.getURL('reminder.html'), prayerKey);
-    chrome.tabs.create({ url: reminderUrl });
-  }
+  openReminderFromNotification(notificationId);
 });
 
 /**
