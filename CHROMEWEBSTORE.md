@@ -116,6 +116,6 @@ npm run package:zip
 ```
 
 The resulting file:
-`releases/extension-browser-zen-clock-1.0.0.zip` (approx. 127 KB) is completely self-contained and ready for upload to:
+`releases/extension-browser-zen-clock-1.0.1.zip` (approx. 127 KB) is completely self-contained and ready for upload to:
 - **Chrome Web Store:** [https://chrome.google.com/webstore/devconsole](https://chrome.google.com/webstore/devconsole)
 - **Microsoft Partner Center:** [https://partner.microsoft.com/dashboard/microsoftedge](https://partner.microsoft.com/dashboard/microsoftedge)

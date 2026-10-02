@@ -108,7 +108,7 @@
 ```bash
 npm run package:zip
 ```
-Perintah ini akan mengompilasi dan mengompres folder `dist/` ke dalam berkas arsip `releases/extension-browser-zen-clock-1.0.0.zip` yang siap diunggah ke **Chrome Web Store** dan **Microsoft Edge Add-ons**.
+Perintah ini akan mengompilasi dan mengompres folder `dist/` ke dalam berkas arsip `releases/extension-browser-zen-clock-1.0.1.zip` yang siap diunggah ke **Chrome Web Store** dan **Microsoft Edge Add-ons**.
 
 Untuk panduan lengkap pendaftaran, pemilihan kategori, dan teks justifikasi izin untuk formulir Chrome Developer Dashboard, silakan baca [Panduan Rilis Chrome Web Store](./CHROMEWEBSTORE.md).
 

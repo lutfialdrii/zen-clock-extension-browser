@@ -5,6 +5,14 @@ All notable changes to the "Zen Clock: Pomodoro & Muslim Prayer Times" browser e
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-10-02
+
+### 🐛 Bug Fixes & UI Polish
+- **Reminder Prayer Time Accuracy**: Fixed badge in `reminder.html` to display the actual scheduled prayer time (format `HH:mm`) rather than the current ticking system clock. Supports URL query parameter forward (`?time=...`) with seamless dynamic fallback calculation from local settings and timezone.
+- **Single Check Icon in Confirmation Button**: Fixed duplicate checkmark icon on the "Saya Siap Sholat" / "I Am Ready to Pray" action button by removing the unicode `✓` prefix in `i18n.js` and rendering only the crisp Lucide SVG `<Check size={18} />` icon.
+- **Defensive String Sanitization**: Added regex cleanup in `ReminderPage.jsx` to strip any lingering checkmark or clock emoji from action labels, keeping both primary and secondary buttons cleanly styled and consistent.
+- **Optimized Timer Interval**: Reduced `reminder.html` background timer from 1 second to 60 seconds to conserve memory and CPU cycles when reminder tabs remain open.
+
 ## [1.0.0] - 2026-09-27
 
 > First major official production release of **Zen Clock: Pomodoro & Muslim Prayer Times** for Google Chrome and Microsoft Edge.
